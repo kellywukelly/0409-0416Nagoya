@@ -1,347 +1,1046 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>石打丸山滑雪行</title>
-    <style>
-        /* 日式極簡：和紙白與傳統和色設定 */
-        :root {
-            --bg-color: #F9F8F6;      /* 和紙白 */
-            --card-bg: #FFFFFF;
-            --text-main: #333333;     /* 墨灰 */
-            --text-sub: #8B8B8B;      /* 淺灰 */
-            --border-line: #EAE8E3;   /* 極細邊框 */
-            --accent: #5C5A56;
-            --tag-food: #B35C58;      /* 蘇芳 (柔紅) */
-            --tag-order: #B88942;     /* 琥珀 (柔橘) */
-            --tag-buy: #7C9161;       /* 抹茶 (柔綠) */
-            --tag-code: #53758C;      /* 琉璃 (柔藍) */
-        }
-        
-        * { box-sizing: border-box; }
-        body { 
-            margin: 0; padding: 0; 
-            background-color: var(--bg-color); 
-            color: var(--text-main); 
-            -webkit-tap-highlight-color: transparent; 
-            font-family: "Noto Sans TC", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
-            line-height: 1.8;
-            letter-spacing: 0.03em;
-        }
-        
-        /* 頂部標題列：去除陰影，改用極細底線 */
-        .header { 
-            background: rgba(249,248,246,0.95); 
-            backdrop-filter: blur(5px); 
-            position: sticky; top: 0; z-index: 10; 
-            padding: 18px 20px; 
-            font-size: 16px; 
-            font-weight: 500; 
-            text-align: center; 
-            letter-spacing: 0.1em;
-            border-bottom: 1px solid var(--border-line); 
-        }
-        
-        /* 內容區塊 */
-        .content { padding: 20px 15px 100px 15px; max-width: 600px; margin: 0 auto; display: none; }
-        .content.active { display: block; animation: fadeIn 0.4s ease; }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>名古屋・三重伊勢志摩 8天7夜深度自駕</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Playfair+Display:ital,wght@0,700;1,400&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --washi: #f5f0e8;
+    --cream: #faf7f2;
+    --ink: #1a1510;
+    --charcoal: #3d3530;
+    --vermillion: #c0392b;
+    --torii: #e8410a;
+    --gold: #c9a84c;
+    --sakura: #f2a7b8;
+    --sakura-light: #fde8ed;
+    --pine: #2d5a3d;
+    --sea: #2c6e8a;
+    --mist: #8a9ba8;
+    --border: rgba(26,21,16,0.12);
+  }
 
-        /* 卡片設計：去除陰影，改用純白底與細框線 */
-        .card { 
-            background: var(--card-bg); 
-            border: 1px solid var(--border-line);
-            border-radius: 4px; /* 微圓角 */
-            padding: 24px 20px; 
-            margin-bottom: 20px; 
-        }
-        
-        .card-title { 
-            font-size: 16px; 
-            font-weight: 600; 
-            margin: 0 0 8px 0; 
-            color: var(--text-main); 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 6px;
-        }
-        
-        .card-title span { font-weight: 400; font-size: 14px; color: var(--text-sub); }
-        .weather { font-size: 13px; color: var(--text-sub); margin-bottom: 20px; letter-spacing: 0.05em; }
-        
-        /* 列表與區塊 */
-        .section-title { font-size: 14px; font-weight: 600; margin: 20px 0 10px 0; color: var(--text-main); display: flex; align-items: center;}
-        .section-title::before { content: ""; display: inline-block; width: 3px; height: 12px; background-color: var(--accent); margin-right: 8px; }
-        
-        ul { margin: 0; padding-left: 0; list-style: none; font-size: 14px; color: #4A4A4A; }
-        li { margin-bottom: 12px; position: relative; padding-left: 14px; }
-        li::before { content: "・"; position: absolute; left: 0; color: var(--text-sub); }
-        strong { color: var(--text-main); font-weight: 600; }
-        
-        /* 標籤設計：日系線條風格 */
-        .tag { 
-            padding: 2px 8px; 
-            border-radius: 2px; 
-            font-size: 11px; 
-            font-weight: normal; 
-            display: inline-block; 
-            margin: 0 4px 4px 0; 
-            background: transparent;
-            vertical-align: middle;
-        }
-        .tag-food { border: 1px solid var(--tag-food); color: var(--tag-food); }
-        .tag-order { border: 1px solid var(--tag-order); color: var(--tag-order); }
-        .tag-buy { border: 1px solid var(--tag-buy); color: var(--tag-buy); }
-        .tag-code { border: 1px solid var(--tag-code); color: var(--tag-code); }
-        
-        /* 導航按鈕：文字底線風格 */
-        .nav-btn { 
-            color: var(--text-main); 
-            text-decoration: none; 
-            border-bottom: 1px solid var(--text-sub);
-            padding-bottom: 1px;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
-        .nav-btn:active { opacity: 0.5; }
-        
-        /* 表格設計：極簡無直列框線 */
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
-        th, td { padding: 12px 8px; text-align: left; border-bottom: 1px solid var(--border-line); }
-        th { font-weight: 500; color: var(--text-sub); }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* 底部導航列：去除圖標，改為純文字與指示點 */
-        .tab-bar { 
-            position: fixed; bottom: 0; left: 0; right: 0; 
-            background: rgba(255,255,255,0.98); 
-            border-top: 1px solid var(--border-line); 
-            display: flex; justify-content: space-around; 
-            padding: 15px 0 25px 0; 
-            z-index: 100; max-width: 600px; margin: 0 auto; 
-        }
-        
-        .tab-item { 
-            text-align: center; color: var(--text-sub); 
-            font-size: 14px; font-weight: 400; 
-            cursor: pointer; flex: 1; 
-            letter-spacing: 0.1em;
-            position: relative;
-        }
-        .tab-item.active { color: var(--text-main); font-weight: 600; }
-        .tab-item.active::after {
-            content: ""; position: absolute; bottom: -8px; left: 50%;
-            transform: translateX(-50%); width: 4px; height: 4px;
-            background-color: var(--text-main); border-radius: 50%;
-        }
-    </style>
+  body {
+    background-color: var(--washi);
+    color: var(--ink);
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* Sakura petals animation */
+  .petal {
+    position: fixed;
+    top: -20px;
+    width: 10px;
+    height: 10px;
+    background: var(--sakura);
+    border-radius: 150% 0 150% 0;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 9999;
+    animation: fall linear infinite;
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-20px) rotate(0deg) translateX(0); opacity: 0.7; }
+    50% { transform: translateY(50vh) rotate(180deg) translateX(40px); opacity: 0.5; }
+    100% { transform: translateY(100vh) rotate(360deg) translateX(-20px); opacity: 0; }
+  }
+
+  /* Header */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: var(--ink);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(192,57,43,0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 80% 20%, rgba(201,168,76,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 20% 50%, rgba(44,110,138,0.12) 0%, transparent 60%),
+      linear-gradient(170deg, #0f0c09 0%, #1a1510 40%, #12100d 100%);
+  }
+
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .torii-decoration {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 120px;
+    opacity: 0.15;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    animation: heroReveal 1.2s ease-out both;
+  }
+
+  @keyframes heroReveal {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-subtitle {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
+    font-size: 0.8rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    animation: heroReveal 1.2s 0.2s ease-out both;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    color: #fff;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+    animation: heroReveal 1.2s 0.35s ease-out both;
+  }
+
+  .hero-title span {
+    color: var(--torii);
+  }
+
+  .hero-en {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1rem, 2.5vw, 1.6rem);
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 3rem;
+    animation: heroReveal 1.2s 0.5s ease-out both;
+  }
+
+  .hero-dates {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    animation: heroReveal 1.2s 0.65s ease-out both;
+  }
+
+  .hero-date-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(10px);
+    border-radius: 4px;
+    padding: 1.2rem 1.8rem;
+    text-align: center;
+  }
+
+  .hero-date-card .label {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  .hero-date-card .flight {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  .hero-date-card .detail {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+    margin-top: 0.3rem;
+  }
+
+  .hero-divider {
+    color: rgba(255,255,255,0.2);
+    font-size: 1.5rem;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255,255,255,0.3);
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent);
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* Main content */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* Days nav */
+  .days-nav {
+    background: var(--ink);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .days-nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    overflow-x: auto;
+    padding: 0 2rem;
+    scrollbar-width: none;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .days-nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-day {
+    flex-shrink: 0;
+    padding: 0.4rem 0.9rem;
+    border-radius: 2px;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    color: rgba(255,255,255,0.4);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav-day:hover {
+    color: #fff;
+    background: rgba(255,255,255,0.06);
+  }
+
+  .nav-day.active {
+    color: var(--torii);
+    background: rgba(232,65,10,0.1);
+  }
+
+  /* Timeline */
+  .timeline {
+    padding: 5rem 0;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--border) 10%, var(--border) 90%, transparent);
+    transform: translateX(-50%);
+  }
+
+  .day-block {
+    position: relative;
+    margin-bottom: 5rem;
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .day-block.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .day-header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+
+  .day-header-left {
+    text-align: right;
+  }
+
+  .day-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: var(--mist);
+    letter-spacing: 0.1em;
+  }
+
+  .day-date {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .day-node {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--ink);
+    border: 3px solid var(--washi);
+    box-shadow: 0 0 0 1px var(--border), 0 4px 20px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+  }
+
+  .day-node.vermillion { background: var(--vermillion); }
+  .day-node.torii { background: var(--torii); }
+  .day-node.pine { background: var(--pine); }
+  .day-node.sea { background: var(--sea); }
+  .day-node.gold { background: #8a6d28; }
+
+  .day-title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 300;
+    font-size: 1.05rem;
+    color: var(--charcoal);
+  }
+
+  /* Event cards */
+  .events {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .event {
+    background: var(--cream);
+    padding: 1.4rem 1.6rem;
+    transition: background 0.2s;
+  }
+
+  .event:hover {
+    background: #fff;
+  }
+
+  .event.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .event-time {
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    color: var(--torii);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  .event-type {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+  }
+
+  .event-type.transport { color: var(--sea); }
+  .event-type.food { color: var(--torii); }
+  .event-type.sightseeing { color: var(--pine); }
+  .event-type.hotel { color: var(--gold); }
+  .event-type.tip { color: var(--mist); }
+
+  .event-name {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    line-height: 1.35;
+    margin-bottom: 0.4rem;
+  }
+
+  .event-desc {
+    font-size: 0.8rem;
+    color: var(--charcoal);
+    line-height: 1.6;
+    opacity: 0.75;
+  }
+
+  .event-icon {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  /* Hotel card */
+  .hotel-card {
+    grid-column: 1 / -1;
+    background: var(--ink);
+    padding: 1.2rem 1.6rem;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .hotel-card .hotel-icon {
+    font-size: 1.5rem;
+    opacity: 0.7;
+  }
+
+  .hotel-card .hotel-name {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 300;
+    color: #fff;
+    font-size: 0.95rem;
+    letter-spacing: 0.05em;
+  }
+
+  .hotel-card .hotel-label {
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  /* Special highlights */
+  .highlight-tag {
+    display: inline-block;
+    background: rgba(232,65,10,0.08);
+    color: var(--torii);
+    border: 1px solid rgba(232,65,10,0.2);
+    padding: 0.15rem 0.6rem;
+    border-radius: 2px;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    margin-top: 0.5rem;
+  }
+
+  .highlight-tag.green {
+    background: rgba(45,90,61,0.08);
+    color: var(--pine);
+    border-color: rgba(45,90,61,0.2);
+  }
+
+  .highlight-tag.blue {
+    background: rgba(44,110,138,0.08);
+    color: var(--sea);
+    border-color: rgba(44,110,138,0.2);
+  }
+
+  /* Section divider */
+  .section-divider {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    position: relative;
+  }
+
+  .section-divider::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-divider span {
+    position: relative;
+    background: var(--washi);
+    padding: 0 1rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    color: var(--mist);
+    text-transform: uppercase;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--ink);
+    padding: 4rem 2rem;
+    text-align: center;
+    color: rgba(255,255,255,0.3);
+  }
+
+  footer .footer-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.5rem;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 0.8rem;
+  }
+
+  footer p {
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    line-height: 2;
+  }
+
+  footer .gold { color: var(--gold); }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .timeline::before { left: 20px; }
+    .day-header { grid-template-columns: auto 1fr; }
+    .day-header-left { display: none; }
+    .day-node { width: 40px; height: 40px; font-size: 0.9rem; }
+    .events { grid-template-columns: 1fr; }
+    .event.full-width { grid-column: 1; }
+    .hero-dates { flex-direction: column; gap: 0.8rem; }
+    .hero-divider { display: none; }
+  }
+</style>
 </head>
 <body>
 
-    <div class="header" id="header-title">行程</div>
+<!-- Sakura petals -->
+<div id="petals"></div>
 
-    <div id="tab-itinerary" class="content active">
-        
-        <div class="card">
-            <h2 class="card-title">Day 1: 3/9 (一) <span>抵達與移動</span></h2>
-            <div class="weather">越後湯澤約 -2°C ~ -5°C，降雪機率</div>
-            
-            <div class="section-title">航班去程</div>
-            <ul>
-                <li><strong>星宇 JX802</strong> (我與 Kitty) ｜ 10:10 TPE ➔ 14:20 NRT</li>
-            </ul>
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <p class="hero-subtitle">8天7夜・深度自駕行程</p>
+    <h1 class="hero-title">名古屋<span>・</span>三重<br>伊勢志摩</h1>
+    <p class="hero-en">Nagoya · Mie · Ise-Shima Road Trip</p>
 
-            <div class="section-title">交通手段</div>
-            <ul>
-                <li><a href="https://maps.google.com/?q=京成上野站" target="_blank" class="nav-btn">京成上野站</a> ➔ 步行 5 分 ➔ <a href="https://maps.google.com/?q=JR上野站" target="_blank" class="nav-btn">JR 上野站</a></li>
-                <li><strong>Skyliner</strong>：建議班次 15:42、16:02、16:42 (已網購)</li>
-                <li><strong>新幹線 (上野發車)</strong>：紙本車票疊一起投入閘門，<strong>勿刷 Suica</strong>
-                    <br>・餘裕：17:38 ➔ 18:45 (Toki 335)
-                    <br>・完美：17:58 ➔ 19:21 (Tanigawa 407)
-                </li>
-            </ul>
+    <div class="hero-dates">
+      <div class="hero-date-card">
+        <div class="label">✈ 去程</div>
+        <div class="flight">JX838</div>
+        <div class="detail">4/9 (四) 18:45 抵達 NGO</div>
+      </div>
+      <div class="hero-divider">→</div>
+      <div class="hero-date-card">
+        <div class="label">✈ 回程</div>
+        <div class="flight">JX839</div>
+        <div class="detail">4/16 (四) 20:15 起飛返台</div>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">SCROLL</div>
+</section>
 
-            <div class="section-title">住宿與接駁</div>
-            <ul>
-                <li><a href="https://maps.google.com/?q=丸山溫泉古城館" target="_blank" class="nav-btn">丸山溫泉 古城館</a></li>
-                <li><strong>接駁車</strong>：19:30 越後湯澤出發 (2人)</li>
-                <li><span class="tag tag-code">預約番號</span> <strong>BKG987654321</strong> (樂天包裹代收)</li>
-                <li><a href="https://www.kojokan.com/booking/checkin?id=BKG987654321" target="_blank" class="nav-btn" style="color:var(--text-main);">專屬入住手續連結</a></li>
-            </ul>
+<!-- Days Nav -->
+<nav class="days-nav">
+  <div class="days-nav-inner">
+    <a href="#day1" class="nav-day active">Day 1 · 4/9</a>
+    <a href="#day2" class="nav-day">Day 2 · 4/10</a>
+    <a href="#day3" class="nav-day">Day 3 · 4/11</a>
+    <a href="#day4" class="nav-day">Day 4 · 4/12</a>
+    <a href="#day5" class="nav-day">Day 5 · 4/13</a>
+    <a href="#day6" class="nav-day">Day 6 · 4/14</a>
+    <a href="#day7" class="nav-day">Day 7 · 4/15</a>
+    <a href="#day8" class="nav-day">Day 8 · 4/16</a>
+  </div>
+</nav>
+
+<!-- Timeline -->
+<section class="timeline">
+  <div class="container">
+
+    <!-- Day 1 -->
+    <div class="day-block" id="day1">
+      <div class="day-header">
+        <div class="day-header-left">
+          <div class="day-number">Day One</div>
+          <div class="day-date">4月9日 (四)</div>
+          <div class="day-title">抵達名古屋・星空雞肉之旅</div>
         </div>
-
-        <div class="card">
-            <h2 class="card-title">Day 2: 3/10 (二) <span>滑雪課程 初日</span></h2>
-            <div class="weather">石打丸山約 1°C ~ -5°C，多雲時陰短暫雪</div>
-            
-            <div class="section-title">行程概要</div>
-            <ul>
-                <li><a href="https://maps.google.com/?q=石打丸山滑雪場" target="_blank" class="nav-btn">石打丸山滑雪場</a></li>
-                <li><strong>午前</strong>：飯店(¥8,500)或雪場(¥18,500)租裝備。不去雪物嚴選。</li>
-                <li><strong>午後</strong>：雪道練習</li>
-            </ul>
-
-            <div class="section-title">食事推薦</div>
-            <ul>
-                <li><span class="tag tag-food">必食</span> <strong>ウィンターハウス大丸</strong> (現烤炭火燒肉)</li>
-                <li><span class="tag tag-order">銘品</span> <strong>The Veranda</strong> (奧地利餐廳：荷蘭鐵鍋鬆餅)</li>
-            </ul>
-            
-            <div class="section-title">住宿</div>
-            <ul>
-                <li><strong>古城館</strong> (晚餐預約完畢)</li>
-            </ul>
+        <div class="day-node torii">1</div>
+        <div></div>
+      </div>
+      <div class="events">
+        <div class="event full-width">
+          <div class="event-time">18:45</div>
+          <span class="event-icon">✈️</span>
+          <div class="event-type transport">抵達 · 交通</div>
+          <div class="event-name">中部國際機場 (NGO)</div>
+          <div class="event-desc">使用手機 Suica 感應進入名鐵月台。搭乘 μ-Sky 前往名古屋站。</div>
+          <span class="highlight-tag blue">基本車資 980円 可用 Suica</span>
+          <span class="highlight-tag">座位券 450円 建議線上購買</span>
         </div>
-
-        <div class="card">
-            <h2 class="card-title">Day 3: 3/11 (三) <span>滑雪課程 二日目</span></h2>
-            <div class="weather">石打丸山約 0°C ~ -4°C，多雲</div>
-            
-            <div class="section-title">朝食</div>
-            <ul>
-                <li><strong>古城館</strong>內用 (已追加)</li>
-            </ul>
-            <div class="section-title">行程概要</div>
-            <ul>
-                <li>全日：滑雪課程與練習</li>
-            </ul>
+        <div class="event">
+          <span class="event-icon">🍗</span>
+          <div class="event-type food">晚餐</div>
+          <div class="event-name">鳥開總本家</div>
+          <div class="event-desc">必點：金賞手羽先、名古屋雞布丁。</div>
         </div>
-
-        <div class="card">
-            <h2 class="card-title">Day 4: 3/12 (四) <span>Solo Ski 與東京移動</span></h2>
-            <div class="weather">越後湯澤 2°C ~ -3°C / 東京約 12°C</div>
-            
-            <div class="section-title">行程概要</div>
-            <ul>
-                <li><strong>午前</strong>：古城館早餐 ➔ 退房寄放行李</li>
-                <li><strong>全日</strong>：自主滑雪 (石打丸山)</li>
-            </ul>
-
-            <div class="section-title">交通手段 (越後湯澤 ➔ 上野)</div>
-            <ul>
-                <li><strong>17:00 頃</strong>：歸還裝備，轉新幹線回東京。</li>
-                <li><strong>新幹線 參考時刻 (預估票價低至 NT$1,300)</strong>
-                    <br>・15:12 ➔ 16:22｜Toki 324 (車程 1時10分)
-                    <br>・16:00 ➔ 17:14｜Tanigawa 412 (車程 1時14分)
-                    <br>・16:18 ➔ 17:34｜Toki 328 (車程 1時16分)
-                    <br>・17:08 ➔ 18:14｜Tanigawa 86 (車程 1時6分)
-                </li>
-                <li><span style="font-size: 12px; color: var(--text-sub);">※ 若預計搭乘 17:08 班次，建議提早於 16:00-16:30 歸還裝備，以免太趕。</span></li>
-            </ul>
-
-            <div class="section-title">車站採買 (CoCoLo 湯澤)</div>
-            <ul>
-                <li><span class="tag tag-food">必食</span> <strong>ぽんしゅ館</strong> (投幣品嚐清酒)</li>
-                <li><span class="tag tag-order">銘品</span> <strong>爆彈飯糰</strong> (推薦明太子，兩人分食)</li>
-                <li><span class="tag tag-buy">土產</span> <strong>南魚沼產越光米</strong>、<strong>新潟地酒</strong>、<strong>笹糰子</strong></li>
-            </ul>
-
-            <div class="section-title">住宿</div>
-            <ul>
-                <li><a href="https://maps.google.com/?q=Tosei+Hotel+Cocone+Ueno+Okachimachi" target="_blank" class="nav-btn">Tosei Hotel Cocone 上野御徒町</a></li>
-            </ul>
+        <div class="hotel-card">
+          <div class="hotel-icon">🏨</div>
+          <div>
+            <div class="hotel-label">住宿</div>
+            <div class="hotel-name">Nikko Style Nagoya</div>
+          </div>
         </div>
-
-        <div class="card">
-            <h2 class="card-title">Day 5: 3/13 (五) <span>東京散策</span></h2>
-            <div class="weather">東京上野約 14°C ~ 6°C，晴時多雲</div>
-            
-            <div class="section-title">行程概要</div>
-            <ul>
-                <li><a href="https://maps.google.com/?q=上野阿美橫町" target="_blank" class="nav-btn">阿美橫町</a> (全日市區逛街採買)</li>
-            </ul>
-
-            <div class="section-title">食事與採買</div>
-            <ul>
-                <li><span class="tag tag-food">必食</span> <strong>とんかつ山家</strong> (平價炸豬排)、<strong>肉の大山</strong></li>
-                <li><span class="tag tag-order">銘品</span> <strong>和牛炸肉餅 / 可樂餅</strong> (肉の大山外帶)</li>
-                <li><span class="tag tag-buy">土產</span> <strong>二木的菓子</strong>、<strong>多慶屋</strong> (鱈魚芝麻條)</li>
-            </ul>
-        </div>
-
-        <div class="card">
-            <h2 class="card-title">Day 6: 3/14 (六) <span>歸途</span></h2>
-            <div class="weather">東京 / 成田約 15°C ~ 8°C</div>
-            
-            <div class="section-title">交通手段</div>
-            <ul>
-                <li><a href="https://maps.google.com/?q=京成上野站" target="_blank" class="nav-btn">京成上野站</a> ➔ <strong>Skyliner</strong> (建議 11:00 前抵達)</li>
-            </ul>
-
-            <div class="section-title">航班回程</div>
-            <ul>
-                <li><strong>我</strong>：星宇 JX801 (13:45 ➔ 16:45 TPE)</li>
-                <li><strong>Kitty</strong>：長榮 BR183 (13:00 ➔ 16:05 TPE)</li>
-            </ul>
-        </div>
+      </div>
     </div>
 
-    <div id="tab-tools" class="content">
-        
-        <div class="card">
-            <h2 class="card-title">航班資訊</h2>
-            <table>
-                <tr><th>搭乘者</th><th>去程 (3/9)</th><th>回程 (3/14)</th></tr>
-                <tr><td>我</td><td>JX802 (10:10)</td><td>JX801 (13:45)</td></tr>
-                <tr><td>Kitty</td><td>JX802 (10:10)</td><td>BR183 (13:00)</td></tr>
-            </table>
+    <!-- Day 2 -->
+    <div class="day-block" id="day2">
+      <div class="day-header">
+        <div class="day-header-left">
+          <div class="day-number">Day Two</div>
+          <div class="day-date">4月10日 (五)</div>
+          <div class="day-title">櫻花、神宮與鰻魚飯</div>
         </div>
-
-        <div class="card">
-            <h2 class="card-title">住宿資訊</h2>
-            <div class="section-title">前三晚 (3/9 - 3/11)</div>
-            <ul>
-                <li><strong>丸山溫泉 古城館</strong></li>
-                <li>預約番號: <code>BKG987654321</code></li>
-                <li>備註: 含 3/10、3/11、3/12 早餐，3/9 晚餐已預約。</li>
-            </ul>
-            <div class="section-title">後兩晚 (3/12 - 3/13)</div>
-            <ul>
-                <li><strong>Tosei Hotel Cocone</strong> (上野御徒町)</li>
-            </ul>
+        <div class="day-node vermillion">2</div>
+        <div></div>
+      </div>
+      <div class="events">
+        <div class="event">
+          <span class="event-icon">🌸</span>
+          <div class="event-type sightseeing">上午 · 賞景</div>
+          <div class="event-name">柳橋中央市場</div>
+          <div class="event-desc">早市氛圍，感受在地食材文化。</div>
         </div>
-
-        <div class="card">
-            <h2 class="card-title">緊急聯絡</h2>
-            <ul>
-                <li>警察 / 事故: <strong>110</strong></li>
-                <li>救護 / 消防: <strong>119</strong></li>
-                <li>台灣急難救助專線: <strong>001-800-0885-0885</strong></li>
-            </ul>
+        <div class="event">
+          <span class="event-icon">🌸</span>
+          <div class="event-type sightseeing">上午 · 賞櫻</div>
+          <div class="event-name">岩倉五條川</div>
+          <div class="event-desc">賞櫻名所，春日絕景。</div>
+          <span class="highlight-tag green">賞櫻名所</span>
         </div>
-
-        <div class="card">
-            <h2 class="card-title">預算紀錄</h2>
-            <table>
-                <tr><th>項目</th><th>預估 (日元)</th><th>備註</th></tr>
-                <tr><td>雪票(3日)</td><td>¥ 20,000</td><td>單人</td></tr>
-                <tr><td>雪板租借</td><td>¥ 8,500起</td><td>視飯店或雪場定價</td></tr>
-                <tr><td>Skyliner</td><td>¥ 2,310</td><td>單程(已網購)</td></tr>
-                <tr><td>去程新幹線</td><td>¥ 13,160</td><td>單程兩人總價</td></tr>
-            </table>
+        <div class="event">
+          <span class="event-icon">⛩️</span>
+          <div class="event-type sightseeing">下午 · 參拜</div>
+          <div class="event-name">熱田神宮</div>
+          <div class="event-desc">名古屋最重要的神宮，供奉草薙劍。</div>
         </div>
-
+        <div class="event">
+          <span class="event-icon">🍱</span>
+          <div class="event-type food">晚餐</div>
+          <div class="event-name">熱田蓬萊軒</div>
+          <div class="event-desc">體驗傳說中的鰻魚飯三吃（ひつまぶし）。</div>
+          <span class="highlight-tag">名古屋必食</span>
+        </div>
+        <div class="hotel-card">
+          <div class="hotel-icon">🏨</div>
+          <div>
+            <div class="hotel-label">住宿</div>
+            <div class="hotel-name">Nikko Style Nagoya</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="tab-bar">
-        <div class="tab-item active" onclick="switchTab('itinerary', this)">行程</div>
-        <div class="tab-item" onclick="switchTab('tools', this)">手帳</div>
+    <!-- Day 3 -->
+    <div class="day-block" id="day3">
+      <div class="day-header">
+        <div class="day-header-left">
+          <div class="day-number">Day Three</div>
+          <div class="day-date">4月11日 (六)</div>
+          <div class="day-title">名古屋港水族館全日</div>
+        </div>
+        <div class="day-node sea">3</div>
+        <div></div>
+      </div>
+      <div class="events">
+        <div class="event full-width">
+          <span class="event-icon">🐋</span>
+          <div class="event-type sightseeing">全天 · 探索</div>
+          <div class="event-name">名古屋港水族館</div>
+          <div class="event-desc">觀賞虎鯨表演、企鵝漫步，全日暢遊。</div>
+          <span class="highlight-tag blue">虎鯨 · 企鵝</span>
+        </div>
+        <div class="hotel-card">
+          <div class="hotel-icon">🏨</div>
+          <div>
+            <div class="hotel-label">住宿</div>
+            <div class="hotel-name">Nikko Style Nagoya</div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <script>
-        function switchTab(tabName, element) {
-            document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.tab-item').forEach(el => el.classList.remove('active'));
-            
-            document.getElementById('tab-' + tabName).classList.add('active');
-            element.classList.add('active');
-            
-            document.getElementById('header-title').innerText = tabName === 'itinerary' ? '行程' : '手帳';
-            window.scrollTo(0, 0);
-        }
-    </script>
+    <!-- Day 4 -->
+    <div class="day-block" id="day4">
+      <div class="day-header">
+        <div class="day-header-left">
+          <div class="day-number">Day Four</div>
+          <div class="day-date">4月12日 (日)</div>
+          <div class="day-title">名古屋城 ➔ 取車南下桑名</div>
+        </div>
+        <div class="day-node gold">4</div>
+        <div></div>
+      </div>
+      <div class="events">
+        <div class="event full-width">
+          <span class="event-icon">🏯</span>
+          <div class="event-type sightseeing">上午</div>
+          <div class="event-name">名古屋城</div>
+          <div class="event-desc">參觀本丸御殿，感受金鯱之城的壯麗。</div>
+        </div>
+        <div class="event">
+          <div class="event-time">14:00</div>
+          <span class="event-icon">🚗</span>
+          <div class="event-type transport">【正式取車】</div>
+          <div class="event-name">名古屋車站租車</div>
+          <div class="event-desc">於名古屋車站附近租車公司領車，開啟自駕行程。</div>
+          <span class="highlight-tag">自駕出發</span>
+        </div>
+        <div class="event">
+          <div class="event-time">15:00</div>
+          <span class="event-icon">🏨</span>
+          <div class="event-type hotel">入住</div>
+          <div class="event-name">Hotel Route Inn Kuwana</div>
+          <div class="event-desc">抵達桑名辦理入住，稍作休息。</div>
+        </div>
+        <div class="event">
+          <div class="event-time">17:00</div>
+          <span class="event-icon">🍜</span>
+          <div class="event-type food">晚餐</div>
+          <div class="event-name">歌行燈 本店</div>
+          <div class="event-desc">桑名文蛤料理，享受鮮甜蛤蜊鍋。</div>
+        </div>
+        <div class="event">
+          <div class="event-time">18:30</div>
+          <span class="event-icon">✨</span>
+          <div class="event-type sightseeing">夜景</div>
+          <div class="event-name">名花之里</div>
+          <div class="event-desc">欣賞日本最大規模燈光秀，夢幻絕景。</div>
+          <span class="highlight-tag">日本最大燈光秀</span>
+        </div>
+        <div class="hotel-card">
+          <div class="hotel-icon">🏨</div>
+          <div>
+            <div class="hotel-label">住宿</div>
+            <div class="hotel-name">Hotel Route Inn Kuwana</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 5 -->
+    <div class="day-block" id="day5">
+      <div class="day-header">
+        <div class="day-header-left">
+          <div class="day-number">Day Five</div>
+          <div class="day-date">4月13日 (一)</div>
+          <div class="day-title">鮪魚、賽道與外宮參拜</div>
+        </div>
+        <div class="day-node torii">5</div>
+        <div></div>
+      </div>
+      <div class="events">
+        <div class="event">
+          <span class="event-icon">🐟</span>
+          <div class="event-type food">上午 · 午餐</div>
+          <div class="event-name">EXPASA 御在所 SA</div>
+          <div class="event-desc">鮪魚餐廳，享用澎湃鮮魚丼午餐。</div>
+          <span class="highlight-tag">豪華海鮮丼</span>
+        </div>
+        <div class="event">
+          <span class="event-icon">🏎️</span>
+          <div class="event-type sightseeing">下午 · 體驗</div>
+          <div class="event-name">鈴鹿賽道</div>
+          <div class="event-desc">F1 聖地賽車場，感受速度與激情。</div>
+          <span class="highlight-tag blue">F1 賽道</span>
+        </div>
+        <div class="event full-width">
+          <span class="event-icon">⛩️</span>
+          <div class="event-type sightseeing">下午 · 參拜</div>
+          <div class="event-name">伊勢神宮【外宮】豐受大神宮</div>
+          <div class="event-desc">先參拜外宮，感受莊嚴神聖的氛圍。</div>
+        </div>
+        <div class="event full-width">
+          <div class="event-time">17:30</div>
+          <span class="event-icon">🌅</span>
+          <div class="event-type hotel">抵達 · 入住</div>
+          <div class="event-name">Toba Grand Hotel</div>
+          <div class="event-desc">辦理入住後直接享用晚餐。早餐 7:00–9:30 ／ 晚餐 17:30–20:30</div>
+          <span class="highlight-tag">海景飯店</span>
+        </div>
+        <div class="hotel-card">
+          <div class="hotel-icon">🏨</div>
+          <div>
+            <div class="hotel-label">住宿</div>
+            <div class="hotel-name">Toba Grand Hotel</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 6 -->
+    <div class="day-block" id="day6">
+      <div class="day-header">
+        <div class="day-header-left">
+          <div class="day-number">Day Six</div>
+          <div class="day-date">4月14日 (二)</div>
+          <div class="day-title">神宮內宮與志摩南下絕景</div>
+        </div>
+        <div class="day-node pine">6</div>
+        <div></div>
+      </div>
+      <div class="events">
+        <div class="event full-width">
+          <span class="event-icon">⛩️</span>
+          <div class="event-type sightseeing">上午 · 正式參拜</div>
+          <div class="event-name">伊勢神宮【內宮】皇大神宮</div>
+          <div class="event-desc">日本最神聖的神宮，供奉天照大神，莊嚴肅穆。</div>
+          <span class="highlight-tag green">日本第一神宮</span>
+        </div>
+        <div class="event">
+          <span class="event-icon">🍜</span>
+          <div class="event-type food">午餐</div>
+          <div class="event-name">五十鈴川河畔豆腐屋</div>
+          <div class="event-desc">享受河景與精緻豆腐料理。</div>
+        </div>
+        <div class="event">
+          <span class="event-icon">🛍️</span>
+          <div class="event-type sightseeing">下午</div>
+          <div class="event-name">托福橫丁</div>
+          <div class="event-desc">參道商店街，試吃伊勢名物赤福。</div>
+        </div>
+        <div class="event">
+          <span class="event-icon">🚗</span>
+          <div class="event-type sightseeing">下午 · 景點</div>
+          <div class="event-name">道の駅 伊勢志摩</div>
+          <div class="event-desc">休息站選購當地特產。</div>
+        </div>
+        <div class="event full-width">
+          <span class="event-icon">🏔️</span>
+          <div class="event-type sightseeing">下午 · 絕景</div>
+          <div class="event-name">橫山展望台</div>
+          <div class="event-desc">俯瞰英虞灣絕美景色，感受志摩半島壯闊海景。</div>
+          <span class="highlight-tag blue">英虞灣全景</span>
+        </div>
+        <div class="hotel-card">
+          <div class="hotel-icon">🏨</div>
+          <div>
+            <div class="hotel-label">住宿</div>
+            <div class="hotel-name">Toba Grand Hotel</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 7 -->
+    <div class="day-block" id="day7">
+      <div class="day-header">
+        <div class="day-header-left">
+          <div class="day-number">Day Seven</div>
+          <div class="day-date">4月15日 (三)</div>
+          <div class="day-title">水族館與天空之徑</div>
+        </div>
+        <div class="day-node sea">7</div>
+        <div></div>
+      </div>
+      <div class="events">
+        <div class="event">
+          <span class="event-icon">🦭</span>
+          <div class="event-type sightseeing">上午</div>
+          <div class="event-name">鳥羽水族館</div>
+          <div class="event-desc">觀賞全日本唯一的儒艮，療癒可愛的海獺。</div>
+          <span class="highlight-tag blue">全日本唯一儒艮</span>
+        </div>
+        <div class="event">
+          <span class="event-icon">🌤️</span>
+          <div class="event-type sightseeing">下午</div>
+          <div class="event-name">朝熊山頂展望台</div>
+          <div class="event-desc">天空郵筒、足湯，享受雲端景色。</div>
+          <span class="highlight-tag green">天空足湯</span>
+        </div>
+        <div class="event">
+          <span class="event-icon">🛣️</span>
+          <div class="event-type sightseeing">下午 · 兜風</div>
+          <div class="event-name">珍珠路 (Pearl Road)</div>
+          <div class="event-desc">沿線海景絕美，自駕兜風最佳路線。</div>
+        </div>
+        <div class="event">
+          <span class="event-icon">🌊</span>
+          <div class="event-type sightseeing">下午 · 展望</div>
+          <div class="event-name">鳥羽展望台</div>
+          <div class="event-desc">眺望鳥羽港灣全景。</div>
+        </div>
+        <div class="hotel-card">
+          <div class="hotel-icon">🏨</div>
+          <div>
+            <div class="hotel-label">住宿</div>
+            <div class="hotel-name">Toba Grand Hotel</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Day 8 -->
+    <div class="day-block" id="day8">
+      <div class="day-header">
+        <div class="day-header-left">
+          <div class="day-number">Day Eight</div>
+          <div class="day-date">4月16日 (四)</div>
+          <div class="day-title">最後大採買 ➔ 返台</div>
+        </div>
+        <div class="day-node vermillion">8</div>
+        <div></div>
+      </div>
+      <div class="events">
+        <div class="event">
+          <div class="event-time">09:30</div>
+          <span class="event-icon">☕</span>
+          <div class="event-type food">早餐</div>
+          <div class="event-name">悠閒享用飯店早餐</div>
+          <div class="event-desc">最後一個早晨，從容用餐。</div>
+        </div>
+        <div class="event">
+          <div class="event-time">11:00</div>
+          <span class="event-icon">🚗</span>
+          <div class="event-type transport">出發</div>
+          <div class="event-name">退房北上</div>
+          <div class="event-desc">辦理退房，開車北上直達刈谷。</div>
+        </div>
+        <div class="event full-width">
+          <div class="event-time">13:00 – 15:30</div>
+          <span class="event-icon">🛒</span>
+          <div class="event-type sightseeing">最後採買</div>
+          <div class="event-name">刈谷 High Highway Oasis</div>
+          <div class="event-desc">最後大採買、逛豪華廁所，補充各式伴手禮。</div>
+          <span class="highlight-tag">高速公路名物 Oasis</span>
+        </div>
+        <div class="event">
+          <div class="event-time">16:15</div>
+          <span class="event-icon">🚗</span>
+          <div class="event-type transport">還車</div>
+          <div class="event-name">中部機場還車</div>
+          <div class="event-desc">起飛前 4 小時完成還車。</div>
+        </div>
+        <div class="event">
+          <span class="event-icon">🍺</span>
+          <div class="event-type tip">貴賓室</div>
+          <div class="event-name">安檢前貴賓室（3樓）</div>
+          <div class="event-desc">使用 JCB 信用卡入場，生啤酒免費暢飲！</div>
+          <span class="highlight-tag green">JCB 免費入場</span>
+        </div>
+        <div class="event full-width">
+          <div class="event-time">20:15</div>
+          <span class="event-icon">✈️</span>
+          <div class="event-type transport">返程</div>
+          <div class="event-name">星宇航空 JX839 起飛返台</div>
+          <div class="event-desc">結束 8 天 7 夜名古屋・三重伊勢志摩深度自駕之旅，帶著滿滿回憶返回台北。</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-title">名古屋・三重伊勢志摩</div>
+  <p>
+    <span class="gold">JX838</span> ✦ 4/9 抵達中部國際機場 ✦ 8天7夜自駕深度探索<br>
+    名古屋 · 桑名 · 鈴鹿 · 伊勢 · 鳥羽 · 志摩<br>
+    <span class="gold">JX839</span> ✦ 4/16 20:15 返回台北
+  </p>
+</footer>
+
+<script>
+  // Generate sakura petals
+  const petalContainer = document.getElementById('petals');
+  for (let i = 0; i < 18; i++) {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    petal.style.left = Math.random() * 100 + 'vw';
+    petal.style.animationDuration = (6 + Math.random() * 10) + 's';
+    petal.style.animationDelay = (Math.random() * 12) + 's';
+    petal.style.width = (6 + Math.random() * 8) + 'px';
+    petal.style.height = petal.style.width;
+    petal.style.opacity = 0.3 + Math.random() * 0.4;
+    const hue = 340 + Math.random() * 20;
+    petal.style.background = `hsl(${hue}, 70%, 80%)`;
+    petalContainer.appendChild(petal);
+  }
+
+  // Intersection Observer for day blocks
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.day-block').forEach(block => {
+    observer.observe(block);
+  });
+
+  // Nav active state
+  const navLinks = document.querySelectorAll('.nav-day');
+  const dayBlocks = document.querySelectorAll('.day-block');
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.4 });
+
+  dayBlocks.forEach(block => navObserver.observe(block));
+
+  // Smooth scroll
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
 </body>
 </html>
