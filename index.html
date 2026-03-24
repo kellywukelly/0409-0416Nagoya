@@ -7,151 +7,155 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;900&family=Playfair+Display:ital,wght@0,700;1,400&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --washi: #f5f0e8;
-    --cream: #faf7f2;
-    --ink: #1a1510;
-    --charcoal: #3d3530;
-    --vermillion: #c0392b;
-    --torii: #e8410a;
-    --gold: #c9a84c;
-    --sakura: #f2a7b8;
-    --pine: #2d5a3d;
-    --sea: #2c6e8a;
-    --mist: #8a9ba8;
-    --border: rgba(26,21,16,0.12);
+    --washi: #f5f0e8; --cream: #faf7f2; --ink: #1a1510; --charcoal: #3d3530;
+    --vermillion: #c0392b; --torii: #e8410a; --gold: #c9a84c; --sakura: #f2a7b8;
+    --pine: #2d5a3d; --sea: #2c6e8a; --mist: #8a9ba8; --border: rgba(26,21,16,0.12);
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: var(--washi); color: var(--ink); font-family: 'Noto Sans TC', sans-serif; font-weight: 300; overflow-x: hidden; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--washi); color:var(--ink); font-family:'Noto Sans TC',sans-serif; font-weight:300; overflow-x:hidden; }
 
   /* Petals */
-  .petal { position: fixed; top: -20px; width: 10px; height: 10px; background: var(--sakura); border-radius: 150% 0 150% 0; opacity: .6; pointer-events: none; z-index: 9999; animation: fall linear infinite; }
-  @keyframes fall { 0% { transform: translateY(-20px) rotate(0deg) translateX(0); opacity:.7; } 50% { transform: translateY(50vh) rotate(180deg) translateX(40px); opacity:.5; } 100% { transform: translateY(100vh) rotate(360deg) translateX(-20px); opacity:0; } }
+  .petal { position:fixed; top:-20px; width:10px; height:10px; background:var(--sakura); border-radius:150% 0 150% 0; opacity:.6; pointer-events:none; z-index:9999; animation:fall linear infinite; }
+  @keyframes fall { 0%{transform:translateY(-20px) rotate(0deg) translateX(0);opacity:.7} 50%{transform:translateY(50vh) rotate(180deg) translateX(40px);opacity:.5} 100%{transform:translateY(100vh) rotate(360deg) translateX(-20px);opacity:0} }
 
   /* Hero */
-  .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; overflow: hidden; background: var(--ink); }
-  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(192,57,43,.35) 0%, transparent 70%), radial-gradient(ellipse 60% 40% at 80% 20%, rgba(201,168,76,.15) 0%, transparent 60%), linear-gradient(170deg, #0f0c09 0%, #1a1510 40%, #12100d 100%); }
-  .hero-pattern { position: absolute; inset: 0; opacity: .04; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30Z'/%3E%3C/g%3E%3C/svg%3E"); }
-  .hero-content { position: relative; z-index: 2; animation: heroReveal 1.2s ease-out both; }
-  @keyframes heroReveal { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
-  .hero-subtitle { font-size: .8rem; letter-spacing: .4em; color: var(--gold); text-transform: uppercase; margin-bottom: 1.5rem; animation: heroReveal 1.2s .2s ease-out both; }
-  .hero-title { font-family: 'Noto Serif TC', serif; font-weight: 900; font-size: clamp(2.8rem, 8vw, 6rem); color: #fff; line-height: 1.05; margin-bottom: .5rem; animation: heroReveal 1.2s .35s ease-out both; }
-  .hero-title span { color: var(--torii); }
-  .hero-en { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1rem,2.5vw,1.6rem); color: rgba(255,255,255,.5); margin-bottom: 3rem; animation: heroReveal 1.2s .5s ease-out both; }
-  .hero-dates { display: flex; align-items: center; justify-content: center; gap: 1.5rem; animation: heroReveal 1.2s .65s ease-out both; }
-  .hero-date-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(10px); border-radius: 4px; padding: 1.2rem 1.8rem; text-align: center; }
-  .hero-date-card .label  { font-size: .65rem; letter-spacing: .35em; color: var(--gold); text-transform: uppercase; margin-bottom: .4rem; }
-  .hero-date-card .flight { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: #fff; font-weight: 700; }
-  .hero-date-card .detail { font-size: .75rem; color: rgba(255,255,255,.5); margin-top: .3rem; }
-  .hero-divider { color: rgba(255,255,255,.2); font-size: 1.5rem; }
-  .scroll-hint { position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: .5rem; color: rgba(255,255,255,.3); font-size: .65rem; letter-spacing: .3em; animation: bounce 2s ease-in-out infinite; }
-  .scroll-hint::after { content: ''; width: 1px; height: 40px; background: linear-gradient(to bottom, rgba(255,255,255,.3), transparent); }
-  @keyframes bounce { 0%,100% { transform:translateX(-50%) translateY(0); } 50% { transform:translateX(-50%) translateY(6px); } }
+  .hero { position:relative; min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; overflow:hidden; background:var(--ink); }
+  .hero-bg { position:absolute; inset:0; background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(192,57,43,.35) 0%,transparent 70%),radial-gradient(ellipse 60% 40% at 80% 20%,rgba(201,168,76,.15) 0%,transparent 60%),linear-gradient(170deg,#0f0c09 0%,#1a1510 40%,#12100d 100%); }
+  .hero-pattern { position:absolute; inset:0; opacity:.04; background-image:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30Z'/%3E%3C/g%3E%3C/svg%3E"); }
+  .hero-content { position:relative; z-index:2; animation:heroReveal 1.2s ease-out both; }
+  @keyframes heroReveal { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  .hero-subtitle { font-size:.8rem; letter-spacing:.4em; color:var(--gold); text-transform:uppercase; margin-bottom:1.5rem; animation:heroReveal 1.2s .2s ease-out both; }
+  .hero-title { font-family:'Noto Serif TC',serif; font-weight:900; font-size:clamp(2.8rem,8vw,6rem); color:#fff; line-height:1.05; margin-bottom:.5rem; animation:heroReveal 1.2s .35s ease-out both; }
+  .hero-title span { color:var(--torii); }
+  .hero-en { font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(1rem,2.5vw,1.6rem); color:rgba(255,255,255,.5); margin-bottom:3rem; animation:heroReveal 1.2s .5s ease-out both; }
+  .hero-dates { display:flex; align-items:center; justify-content:center; gap:1.5rem; animation:heroReveal 1.2s .65s ease-out both; }
+  .hero-date-card { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); backdrop-filter:blur(10px); border-radius:4px; padding:1.2rem 1.8rem; text-align:center; }
+  .hero-date-card .label { font-size:.65rem; letter-spacing:.35em; color:var(--gold); text-transform:uppercase; margin-bottom:.4rem; }
+  .hero-date-card .flight { font-family:'Playfair Display',serif; font-size:1.4rem; color:#fff; font-weight:700; }
+  .hero-date-card .detail { font-size:.75rem; color:rgba(255,255,255,.5); margin-top:.3rem; }
+  .hero-divider { color:rgba(255,255,255,.2); font-size:1.5rem; }
+  .scroll-hint { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.5rem; color:rgba(255,255,255,.3); font-size:.65rem; letter-spacing:.3em; animation:bounce 2s ease-in-out infinite; }
+  .scroll-hint::after { content:''; width:1px; height:40px; background:linear-gradient(to bottom,rgba(255,255,255,.3),transparent); }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
 
   /* Nav */
-  .days-nav { background: var(--ink); position: sticky; top: 0; z-index: 100; padding: .8rem 0; border-bottom: 1px solid rgba(255,255,255,.06); }
-  .days-nav-inner { display: flex; align-items: center; gap: .3rem; overflow-x: auto; padding: 0 2rem; scrollbar-width: none; max-width: 1100px; margin: 0 auto; }
-  .days-nav-inner::-webkit-scrollbar { display: none; }
-  .nav-day { flex-shrink: 0; padding: .4rem .9rem; border-radius: 2px; font-size: .72rem; letter-spacing: .05em; color: rgba(255,255,255,.4); cursor: pointer; transition: all .2s; text-decoration: none; white-space: nowrap; }
-  .nav-day:hover { color: #fff; background: rgba(255,255,255,.06); }
-  .nav-day.active { color: var(--torii); background: rgba(232,65,10,.1); }
+  .days-nav { background:var(--ink); position:sticky; top:0; z-index:100; padding:.8rem 0; border-bottom:1px solid rgba(255,255,255,.06); }
+  .days-nav-inner { display:flex; align-items:center; gap:.3rem; overflow-x:auto; padding:0 2rem; scrollbar-width:none; max-width:1100px; margin:0 auto; }
+  .days-nav-inner::-webkit-scrollbar { display:none; }
+  .nav-day { flex-shrink:0; padding:.4rem .9rem; border-radius:2px; font-size:.72rem; letter-spacing:.05em; color:rgba(255,255,255,.4); cursor:pointer; transition:all .2s; text-decoration:none; white-space:nowrap; }
+  .nav-day:hover { color:#fff; background:rgba(255,255,255,.06); }
+  .nav-day.active { color:var(--torii); background:rgba(232,65,10,.1); }
 
   /* Tabs */
-  .tab-bar { background: var(--cream); border-bottom: 1px solid var(--border); display: flex; justify-content: center; }
-  .tab-btn { padding: .9rem 2rem; font-size: .78rem; letter-spacing: .15em; text-transform: uppercase; cursor: pointer; border: none; background: transparent; color: var(--mist); font-family: 'Noto Sans TC', sans-serif; border-bottom: 2px solid transparent; transition: all .2s; }
-  .tab-btn.active { color: var(--torii); border-bottom-color: var(--torii); }
-  .tab-btn:hover  { color: var(--ink); }
-  .panel { display: none; }
-  .panel.active { display: block; }
+  .tab-bar { background:var(--cream); border-bottom:1px solid var(--border); display:flex; justify-content:center; }
+  .tab-btn { padding:.9rem 2rem; font-size:.78rem; letter-spacing:.15em; text-transform:uppercase; cursor:pointer; border:none; background:transparent; color:var(--mist); font-family:'Noto Sans TC',sans-serif; border-bottom:2px solid transparent; transition:all .2s; }
+  .tab-btn.active { color:var(--torii); border-bottom-color:var(--torii); }
+  .tab-btn:hover { color:var(--ink); }
+  .panel { display:none; }
+  .panel.active { display:block; }
 
   /* Timeline */
-  .timeline { padding: 5rem 0; position: relative; }
-  .timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, transparent, var(--border) 10%, var(--border) 90%, transparent); transform: translateX(-50%); }
-  .container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
-  .day-block { position: relative; margin-bottom: 5rem; opacity: 0; transform: translateY(25px); transition: opacity .7s ease, transform .7s ease; }
-  .day-block.visible { opacity: 1; transform: translateY(0); }
-  .day-header { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.5rem; margin-bottom: 2.5rem; }
-  .day-header-left { text-align: right; }
-  .day-number { font-family: 'Playfair Display', serif; font-style: italic; font-size: .85rem; color: var(--mist); letter-spacing: .1em; }
-  .day-date  { font-family: 'Noto Serif TC', serif; font-weight: 600; font-size: 1.5rem; color: var(--ink); line-height: 1.2; }
-  .day-title { font-family: 'Noto Serif TC', serif; font-weight: 300; font-size: 1.05rem; color: var(--charcoal); }
-  .day-node { width: 48px; height: 48px; border-radius: 50%; background: var(--ink); border: 3px solid var(--washi); box-shadow: 0 0 0 1px var(--border), 0 4px 20px rgba(0,0,0,.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: #fff; position: relative; z-index: 1; }
-  .day-node.vermillion { background: var(--vermillion); }
-  .day-node.torii      { background: var(--torii); }
-  .day-node.pine       { background: var(--pine); }
-  .day-node.sea        { background: var(--sea); }
-  .day-node.gold       { background: #8a6d28; }
+  .timeline { padding:5rem 0; position:relative; }
+  .timeline::before { content:''; position:absolute; left:50%; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,transparent,var(--border) 10%,var(--border) 90%,transparent); transform:translateX(-50%); }
+  .container { max-width:1000px; margin:0 auto; padding:0 2rem; }
+  .day-block { position:relative; margin-bottom:5rem; opacity:0; transform:translateY(25px); transition:opacity .7s ease,transform .7s ease; }
+  .day-block.visible { opacity:1; transform:translateY(0); }
+  .day-header { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:1.5rem; margin-bottom:2.5rem; }
+  .day-header-left { text-align:right; }
+  .day-number { font-family:'Playfair Display',serif; font-style:italic; font-size:.85rem; color:var(--mist); letter-spacing:.1em; }
+  .day-date  { font-family:'Noto Serif TC',serif; font-weight:600; font-size:1.5rem; color:var(--ink); line-height:1.2; }
+  .day-title { font-family:'Noto Serif TC',serif; font-weight:300; font-size:1.05rem; color:var(--charcoal); }
+  .day-node { width:48px; height:48px; border-radius:50%; background:var(--ink); border:3px solid var(--washi); box-shadow:0 0 0 1px var(--border),0 4px 20px rgba(0,0,0,.15); display:flex; align-items:center; justify-content:center; flex-shrink:0; font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:#fff; position:relative; z-index:1; }
+  .day-node.vermillion { background:var(--vermillion); }
+  .day-node.torii      { background:var(--torii); }
+  .day-node.pine       { background:var(--pine); }
+  .day-node.sea        { background:var(--sea); }
+  .day-node.gold       { background:#8a6d28; }
 
   /* Events */
-  .events { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
-  .event { background: var(--cream); padding: 1.4rem 1.6rem; transition: background .2s; }
-  .event:hover { background: #fff; }
-  .event.full-width { grid-column: 1 / -1; }
-  .event.alert-card { background: #fff8f0; border-left: 3px solid var(--torii); }
-  .event.alert-card:hover { background: #fff4ea; }
-  .event-time { font-size: .68rem; letter-spacing: .25em; color: var(--torii); font-weight: 500; margin-bottom: .5rem; text-transform: uppercase; }
-  .event-icon { font-size: 1.2rem; margin-bottom: .5rem; display: block; }
-  .event-type { font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; margin-bottom: .4rem; font-weight: 500; }
-  .event-type.transport   { color: var(--sea); }
-  .event-type.food        { color: var(--torii); }
-  .event-type.sightseeing { color: var(--pine); }
-  .event-type.hotel       { color: var(--gold); }
-  .event-type.tip         { color: var(--mist); }
-  .event-type.alert       { color: var(--vermillion); }
-  .event-name { font-family: 'Noto Serif TC', serif; font-weight: 600; font-size: 1.05rem; color: var(--ink); line-height: 1.35; margin-bottom: .4rem; }
-  .event-desc { font-size: .8rem; color: var(--charcoal); line-height: 1.6; opacity: .8; }
-  .hotel-card { grid-column: 1 / -1; background: var(--ink); padding: 1.2rem 1.6rem; display: flex; align-items: center; gap: 1.2rem; }
-  .hotel-card .hotel-icon  { font-size: 1.5rem; opacity: .7; }
-  .hotel-card .hotel-label { font-size: .62rem; letter-spacing: .3em; color: var(--gold); text-transform: uppercase; margin-bottom: .2rem; }
-  .hotel-card .hotel-name  { font-family: 'Noto Serif TC', serif; font-weight: 300; color: #fff; font-size: .95rem; letter-spacing: .05em; }
-  .highlight-tag { display: inline-block; margin-top: .5rem; margin-right: .3rem; padding: .15rem .6rem; border-radius: 2px; font-size: .65rem; letter-spacing: .1em; font-weight: 500; background: rgba(232,65,10,.08); color: var(--torii); border: 1px solid rgba(232,65,10,.2); }
-  .highlight-tag.green { background: rgba(45,90,61,.08); color: var(--pine); border-color: rgba(45,90,61,.2); }
-  .highlight-tag.blue  { background: rgba(44,110,138,.08); color: var(--sea); border-color: rgba(44,110,138,.2); }
-  .highlight-tag.gold  { background: rgba(201,168,76,.1); color: #7a5c1e; border-color: rgba(201,168,76,.3); }
+  .events { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+  .event { background:var(--cream); padding:1.4rem 1.6rem; transition:background .2s; }
+  .event:hover { background:#fff; }
+  .event.full-width { grid-column:1/-1; }
+  .event.alert-card { background:#fff8f0; border-left:3px solid var(--torii); }
+  .event.alert-card:hover { background:#fff4ea; }
+  .event-time { font-size:.68rem; letter-spacing:.25em; color:var(--torii); font-weight:500; margin-bottom:.5rem; text-transform:uppercase; }
+  .event-icon { font-size:1.2rem; margin-bottom:.5rem; display:block; }
+  .event-type { font-size:.65rem; letter-spacing:.2em; text-transform:uppercase; margin-bottom:.4rem; font-weight:500; }
+  .event-type.transport   { color:var(--sea); }
+  .event-type.food        { color:var(--torii); }
+  .event-type.sightseeing { color:var(--pine); }
+  .event-type.hotel       { color:var(--gold); }
+  .event-type.tip         { color:var(--mist); }
+  .event-type.alert       { color:var(--vermillion); }
+  .event-name { font-family:'Noto Serif TC',serif; font-weight:600; font-size:1.05rem; color:var(--ink); line-height:1.35; margin-bottom:.4rem; display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
+  .event-desc { font-size:.8rem; color:var(--charcoal); line-height:1.6; opacity:.8; }
+
+  /* Google Maps link */
+  .gmap { display:inline-flex; align-items:center; gap:.2rem; padding:.15rem .45rem; border-radius:3px; font-size:.62rem; font-weight:500; font-family:'Noto Sans TC',sans-serif; color:var(--sea); text-decoration:none; background:rgba(44,110,138,.07); border:1px solid rgba(44,110,138,.2); white-space:nowrap; transition:all .18s; flex-shrink:0; }
+  .gmap:hover { background:var(--sea); color:#fff; border-color:var(--sea); }
+  .gmap::before { content:'📍'; font-size:.7rem; }
+
+  .hotel-card { grid-column:1/-1; background:var(--ink); padding:1.2rem 1.6rem; display:flex; align-items:center; gap:1.2rem; }
+  .hotel-card .hotel-icon  { font-size:1.5rem; opacity:.7; }
+  .hotel-card .hotel-label { font-size:.62rem; letter-spacing:.3em; color:var(--gold); text-transform:uppercase; margin-bottom:.2rem; }
+  .hotel-card .hotel-name  { font-family:'Noto Serif TC',serif; font-weight:300; color:#fff; font-size:.95rem; letter-spacing:.05em; display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; }
+  .hotel-card .gmap { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.2); color:rgba(255,255,255,.7); }
+  .hotel-card .gmap:hover { background:rgba(255,255,255,.25); color:#fff; border-color:rgba(255,255,255,.4); }
+
+  .highlight-tag { display:inline-block; margin-top:.5rem; margin-right:.3rem; padding:.15rem .6rem; border-radius:2px; font-size:.65rem; letter-spacing:.1em; font-weight:500; background:rgba(232,65,10,.08); color:var(--torii); border:1px solid rgba(232,65,10,.2); }
+  .highlight-tag.green { background:rgba(45,90,61,.08); color:var(--pine); border-color:rgba(45,90,61,.2); }
+  .highlight-tag.blue  { background:rgba(44,110,138,.08); color:var(--sea); border-color:rgba(44,110,138,.2); }
+  .highlight-tag.gold  { background:rgba(201,168,76,.1); color:#7a5c1e; border-color:rgba(201,168,76,.3); }
 
   /* Map Code panel */
-  .map-panel { padding: 4rem 0; }
-  .section-heading { font-family: 'Noto Serif TC', serif; font-size: 1.4rem; font-weight: 600; color: var(--ink); margin-bottom: .5rem; }
-  .section-sub { font-size: .8rem; color: var(--mist); margin-bottom: 2rem; letter-spacing: .05em; }
-  .table-wrapper { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; background: var(--cream); }
-  table { width: 100%; border-collapse: collapse; font-size: .82rem; }
-  thead tr { background: var(--ink); color: #fff; }
-  thead th { padding: 1rem 1.2rem; text-align: left; font-weight: 400; letter-spacing: .1em; font-size: .72rem; white-space: nowrap; }
-  tbody tr { border-bottom: 1px solid var(--border); transition: background .15s; }
-  tbody tr:last-child { border-bottom: none; }
-  tbody tr:hover { background: #fff; }
-  tbody td { padding: .9rem 1.2rem; vertical-align: middle; }
-  tbody td:first-child { font-family: 'Noto Serif TC', serif; font-weight: 600; color: var(--ink); }
-  .map-code { font-family: monospace; font-size: .88rem; background: rgba(26,21,16,.06); padding: .2rem .5rem; border-radius: 3px; color: var(--charcoal); white-space: nowrap; }
-  .phone-num { color: var(--sea); font-size: .8rem; white-space: nowrap; }
-  .day-badge { display: inline-block; padding: .1rem .5rem; border-radius: 2px; font-size: .62rem; font-weight: 500; background: rgba(232,65,10,.08); color: var(--torii); border: 1px solid rgba(232,65,10,.15); white-space: nowrap; margin-right: .2rem; }
+  .map-panel { padding:4rem 0; }
+  .section-heading { font-family:'Noto Serif TC',serif; font-size:1.4rem; font-weight:600; color:var(--ink); margin-bottom:.5rem; }
+  .section-sub { font-size:.8rem; color:var(--mist); margin-bottom:2rem; letter-spacing:.05em; }
+  .table-wrapper { overflow-x:auto; border:1px solid var(--border); border-radius:8px; background:var(--cream); }
+  table { width:100%; border-collapse:collapse; font-size:.82rem; }
+  thead tr { background:var(--ink); color:#fff; }
+  thead th { padding:1rem 1.2rem; text-align:left; font-weight:400; letter-spacing:.1em; font-size:.72rem; white-space:nowrap; }
+  tbody tr { border-bottom:1px solid var(--border); transition:background .15s; }
+  tbody tr:last-child { border-bottom:none; }
+  tbody tr:hover { background:#fff; }
+  tbody td { padding:.9rem 1.2rem; vertical-align:middle; }
+  tbody td:first-child { font-family:'Noto Serif TC',serif; font-weight:600; color:var(--ink); }
+  .map-code { font-family:monospace; font-size:.88rem; background:rgba(26,21,16,.06); padding:.2rem .5rem; border-radius:3px; color:var(--charcoal); white-space:nowrap; }
+  .phone-num { color:var(--sea); font-size:.8rem; white-space:nowrap; }
+  .day-badge { display:inline-block; padding:.1rem .5rem; border-radius:2px; font-size:.62rem; font-weight:500; background:rgba(232,65,10,.08); color:var(--torii); border:1px solid rgba(232,65,10,.15); white-space:nowrap; margin-right:.2rem; }
+  .tbl-gmap { display:inline-flex; align-items:center; gap:.2rem; padding:.1rem .4rem; border-radius:3px; font-size:.62rem; color:var(--sea); text-decoration:none; background:rgba(44,110,138,.07); border:1px solid rgba(44,110,138,.2); white-space:nowrap; transition:all .18s; margin-left:.4rem; }
+  .tbl-gmap:hover { background:var(--sea); color:#fff; }
+  .tbl-gmap::before { content:'📍'; font-size:.65rem; }
+  .note-text { font-size:.78rem; color:var(--charcoal); }
 
   /* Useful Links */
-  .useful-links { margin-top: 2.5rem; }
-  .links-title { font-family: 'Noto Serif TC', serif; font-size: 1.1rem; font-weight: 600; color: var(--ink); margin-bottom: 1rem; }
-  .link-card { display: flex; align-items: flex-start; gap: 1.2rem; background: var(--cream); border: 1px solid var(--border); border-left: 3px solid var(--sea); border-radius: 6px; padding: 1.3rem 1.5rem; transition: background .2s; }
-  .link-card:hover { background: #fff; }
-  .link-icon { font-size: 1.6rem; flex-shrink: 0; }
-  .link-name { font-family: 'Noto Serif TC', serif; font-weight: 600; font-size: .95rem; color: var(--ink); margin-bottom: .4rem; }
-  .link-desc { font-size: .8rem; color: var(--charcoal); line-height: 1.6; margin-bottom: .5rem; }
-  .link-url { font-size: .78rem; color: var(--sea); text-decoration: none; border-bottom: 1px solid rgba(44,110,138,.3); }
-  .link-url:hover { color: var(--ink); border-bottom-color: var(--ink); }
+  .useful-links { margin-top:2.5rem; }
+  .links-title { font-family:'Noto Serif TC',serif; font-size:1.1rem; font-weight:600; color:var(--ink); margin-bottom:1rem; }
+  .link-card { display:flex; align-items:flex-start; gap:1.2rem; background:var(--cream); border:1px solid var(--border); border-left:3px solid var(--sea); border-radius:6px; padding:1.3rem 1.5rem; transition:background .2s; }
+  .link-card:hover { background:#fff; }
+  .link-icon { font-size:1.6rem; flex-shrink:0; }
+  .link-name { font-family:'Noto Serif TC',serif; font-weight:600; font-size:.95rem; color:var(--ink); margin-bottom:.4rem; }
+  .link-desc { font-size:.8rem; color:var(--charcoal); line-height:1.6; margin-bottom:.5rem; }
+  .link-url { font-size:.78rem; color:var(--sea); text-decoration:none; border-bottom:1px solid rgba(44,110,138,.3); }
+  .link-url:hover { color:var(--ink); border-bottom-color:var(--ink); }
 
   /* Footer */
-  footer { background: var(--ink); padding: 4rem 2rem; text-align: center; color: rgba(255,255,255,.3); }
-  footer .footer-title { font-family: 'Noto Serif TC', serif; font-size: 1.5rem; color: rgba(255,255,255,.7); margin-bottom: .8rem; }
-  footer p { font-size: .78rem; letter-spacing: .15em; line-height: 2; }
-  footer .gold { color: var(--gold); }
+  footer { background:var(--ink); padding:4rem 2rem; text-align:center; color:rgba(255,255,255,.3); }
+  footer .footer-title { font-family:'Noto Serif TC',serif; font-size:1.5rem; color:rgba(255,255,255,.7); margin-bottom:.8rem; }
+  footer p { font-size:.78rem; letter-spacing:.15em; line-height:2; }
+  footer .gold { color:var(--gold); }
 
-  @media (max-width: 640px) {
-    .timeline::before { left: 20px; }
-    .day-header { grid-template-columns: auto 1fr; }
-    .day-header-left { display: none; }
-    .day-node { width: 40px; height: 40px; font-size: .9rem; }
-    .events { grid-template-columns: 1fr; }
-    .event.full-width { grid-column: 1; }
-    .hero-dates { flex-direction: column; gap: .8rem; }
-    .hero-divider { display: none; }
-    .tab-btn { padding: .7rem 1rem; font-size: .7rem; }
+  @media (max-width:640px) {
+    .timeline::before { left:20px; }
+    .day-header { grid-template-columns:auto 1fr; }
+    .day-header-left { display:none; }
+    .day-node { width:40px; height:40px; font-size:.9rem; }
+    .events { grid-template-columns:1fr; }
+    .event.full-width { grid-column:1; }
+    .hero-dates { flex-direction:column; gap:.8rem; }
+    .hero-divider { display:none; }
+    .tab-btn { padding:.7rem 1rem; font-size:.7rem; }
   }
 </style>
 </head>
@@ -204,7 +208,7 @@
   <button class="tab-btn" onclick="switchTab('mapcode',this)">🗺 Map Code 總表</button>
 </div>
 
-<!-- ══ ITINERARY PANEL ══ -->
+<!-- ══════════ ITINERARY PANEL ══════════ -->
 <div id="panel-itinerary" class="panel active">
 <section class="timeline"><div class="container">
 
@@ -223,7 +227,9 @@
         <div class="event-time">18:45 抵達</div>
         <span class="event-icon">✈️</span>
         <div class="event-type transport">交通</div>
-        <div class="event-name">中部國際機場 (NGO) → 名古屋站</div>
+        <div class="event-name">中部國際機場 (NGO) → 名古屋站
+          <a class="gmap" href="https://maps.google.com/?q=中部国際空港+愛知県常滑市" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">使用手機 Suica 感應進入名鐵月台，搭乘 <strong>μ-Sky（28分鐘）</strong>前往名古屋站。</div>
         <span class="highlight-tag blue">基本車資刷手機 Suica</span>
         <span class="highlight-tag">座位券 450円 建議線上購買</span>
@@ -232,13 +238,20 @@
         <div class="event-time">20:30</div>
         <span class="event-icon">🍗</span>
         <div class="event-type food">晚餐</div>
-        <div class="event-name">鳥開總本家</div>
+        <div class="event-name">鳥開總本家
+          <a class="gmap" href="https://maps.google.com/?q=鳥開総本家+名古屋駅" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">必點：手羽先（金賞雞翅）、名古屋雞布丁。</div>
         <span class="highlight-tag">名古屋必食</span>
       </div>
       <div class="hotel-card">
         <div class="hotel-icon">🏨</div>
-        <div><div class="hotel-label">住宿</div><div class="hotel-name">Nikko Style Nagoya</div></div>
+        <div>
+          <div class="hotel-label">住宿</div>
+          <div class="hotel-name">Nikko Style Nagoya
+            <a class="gmap" href="https://maps.google.com/?q=ニッコースタイル名古屋" target="_blank" rel="noopener">地圖</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -257,27 +270,35 @@
       <div class="event">
         <span class="event-icon">🌸</span>
         <div class="event-type sightseeing">上午</div>
-        <div class="event-name">柳橋中央市場</div>
+        <div class="event-name">柳橋中央市場
+          <a class="gmap" href="https://maps.google.com/?q=柳橋中央市場+名古屋市中村区" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">早市氛圍，感受在地食材文化。</div>
       </div>
       <div class="event">
         <span class="event-icon">🌸</span>
         <div class="event-type sightseeing">上午 · 賞櫻</div>
-        <div class="event-name">岩倉五條川</div>
+        <div class="event-name">岩倉五條川
+          <a class="gmap" href="https://maps.google.com/?q=五条川+岩倉市+愛知県" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">春日絕景賞櫻名所。</div>
         <span class="highlight-tag green">賞櫻名所</span>
       </div>
       <div class="event">
         <span class="event-icon">⛩️</span>
         <div class="event-type sightseeing">下午</div>
-        <div class="event-name">熱田神宮</div>
+        <div class="event-name">熱田神宮
+          <a class="gmap" href="https://maps.google.com/?q=熱田神宮+名古屋市熱田区" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">名古屋最重要的神宮，供奉草薙劍。</div>
       </div>
       <div class="event alert-card">
         <div class="event-time">16:00【重點提醒】</div>
         <span class="event-icon">⚠️</span>
         <div class="event-type alert">注意事項</div>
-        <div class="event-name">熱田蓬萊軒 — 先去拿號碼牌！</div>
+        <div class="event-name">熱田蓬萊軒 — 先去拿號碼牌！
+          <a class="gmap" href="https://maps.google.com/?q=熱田蓬萊軒+神宮店+名古屋" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">建議<strong>先拿完號碼牌</strong>再逛神宮或周邊，避免白等。</div>
         <span class="highlight-tag">16:00 前往排隊</span>
       </div>
@@ -290,7 +311,12 @@
       </div>
       <div class="hotel-card">
         <div class="hotel-icon">🏨</div>
-        <div><div class="hotel-label">住宿</div><div class="hotel-name">Nikko Style Nagoya</div></div>
+        <div>
+          <div class="hotel-label">住宿</div>
+          <div class="hotel-name">Nikko Style Nagoya
+            <a class="gmap" href="https://maps.google.com/?q=ニッコースタイル名古屋" target="_blank" rel="noopener">地圖</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -309,13 +335,20 @@
       <div class="event full-width">
         <span class="event-icon">🐋</span>
         <div class="event-type sightseeing">全天</div>
-        <div class="event-name">名古屋港水族館</div>
+        <div class="event-name">名古屋港水族館
+          <a class="gmap" href="https://maps.google.com/?q=名古屋港水族館+名古屋市港区" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">觀賞虎鯨表演、企鵝漫步，全日暢遊日本最大級水族館。</div>
         <span class="highlight-tag blue">虎鯨 · 企鵝漫步</span>
       </div>
       <div class="hotel-card">
         <div class="hotel-icon">🏨</div>
-        <div><div class="hotel-label">住宿</div><div class="hotel-name">Nikko Style Nagoya</div></div>
+        <div>
+          <div class="hotel-label">住宿</div>
+          <div class="hotel-name">Nikko Style Nagoya
+            <a class="gmap" href="https://maps.google.com/?q=ニッコースタイル名古屋" target="_blank" rel="noopener">地圖</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -334,14 +367,18 @@
       <div class="event full-width">
         <span class="event-icon">🏯</span>
         <div class="event-type sightseeing">上午</div>
-        <div class="event-name">名古屋城</div>
+        <div class="event-name">名古屋城
+          <a class="gmap" href="https://maps.google.com/?q=名古屋城+名古屋市中区" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">參觀本丸御殿、金鯱，感受金鯱之城的壯麗。</div>
       </div>
       <div class="event">
         <div class="event-time">14:00【正式取車】</div>
         <span class="event-icon">🚗</span>
         <div class="event-type transport">取車</div>
-        <div class="event-name">名古屋車站 租車出發</div>
+        <div class="event-name">名古屋車站 租車出發
+          <a class="gmap" href="https://maps.google.com/?q=名古屋駅+愛知県名古屋市" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">自駕旅程正式啟動！D4–D8 自駕路段開始。</div>
         <span class="highlight-tag">自駕 D4–D8</span>
       </div>
@@ -349,14 +386,18 @@
         <div class="event-time">15:00</div>
         <span class="event-icon">🏨</span>
         <div class="event-type hotel">入住</div>
-        <div class="event-name">Hotel Route Inn Kuwana</div>
+        <div class="event-name">Hotel Route Inn Kuwana
+          <a class="gmap" href="https://maps.google.com/?q=ホテルルートイン桑名+三重県桑名市" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">抵達桑名辦理入住，放好行李稍作休息。</div>
       </div>
       <div class="event">
         <div class="event-time">15:30 – 16:30</div>
         <span class="event-icon">🛒</span>
         <div class="event-type sightseeing">【新行程】採買</div>
-        <div class="event-name">LOPIA 希望丘店</div>
+        <div class="event-name">LOPIA 希望丘店
+          <a class="gmap" href="https://maps.google.com/?q=LOPIA+希望ケ丘店+桑名市" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">飯店附近的大型超市，建議在這裡採購日本當季水果、飲料或零食，帶回飯店或放車上路途享用。</div>
         <span class="highlight-tag green">飯店附近超市</span>
         <span class="highlight-tag blue">當季水果 · 零食 · 飲料</span>
@@ -365,20 +406,29 @@
         <div class="event-time">17:00</div>
         <span class="event-icon">🍜</span>
         <div class="event-type food">晚餐</div>
-        <div class="event-name">歌行燈 本店</div>
+        <div class="event-name">歌行燈 本店
+          <a class="gmap" href="https://maps.google.com/?q=歌行燈本店+桑名市+三重県" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">桑名名物文蛤料理，享受鮮甜蛤蜊風味。</div>
       </div>
       <div class="event">
         <div class="event-time">18:30</div>
         <span class="event-icon">✨</span>
         <div class="event-type sightseeing">夜景</div>
-        <div class="event-name">名花之里（燈光秀）</div>
+        <div class="event-name">名花之里（燈光秀）
+          <a class="gmap" href="https://maps.google.com/?q=なばなの里+桑名市+三重県" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">日本最大規模燈光秀，夢幻絕景。</div>
         <span class="highlight-tag">日本最大燈光秀</span>
       </div>
       <div class="hotel-card">
         <div class="hotel-icon">🏨</div>
-        <div><div class="hotel-label">住宿</div><div class="hotel-name">Hotel Route Inn Kuwana</div></div>
+        <div>
+          <div class="hotel-label">住宿</div>
+          <div class="hotel-name">Hotel Route Inn Kuwana
+            <a class="gmap" href="https://maps.google.com/?q=ホテルルートイン桑名+三重県桑名市" target="_blank" rel="noopener">地圖</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -402,10 +452,30 @@
         <div class="event-desc">御在所 SA 順道買水果，再到大遠食堂外帶鮪魚丼當午餐。</div>
       </div>
       <div class="event">
+        <div class="event-time">途中</div>
+        <span class="event-icon">🍊</span>
+        <div class="event-type sightseeing">休息站</div>
+        <div class="event-name">EXPASA 御在所 SA（下行）
+          <a class="gmap" href="https://maps.google.com/?q=御在所サービスエリア+三重県菰野町" target="_blank" rel="noopener">地圖</a>
+        </div>
+        <div class="event-desc">購買水果、補給點心。</div>
+      </div>
+      <div class="event">
+        <div class="event-time">途中</div>
+        <span class="event-icon">🐟</span>
+        <div class="event-type food">外帶午餐</div>
+        <div class="event-name">大遠食堂（鮪魚丼）
+          <a class="gmap" href="https://maps.google.com/?q=大遠食堂+鈴鹿市+三重県" target="_blank" rel="noopener">地圖</a>
+        </div>
+        <div class="event-desc">澎湃鮮魚丼，外帶帶進賽道享用。</div>
+      </div>
+      <div class="event">
         <div class="event-time">12:20</div>
         <span class="event-icon">🏎️</span>
         <div class="event-type sightseeing">抵達</div>
-        <div class="event-name">鈴鹿賽道（停 P1/P2）</div>
+        <div class="event-name">鈴鹿賽道（停 P1/P2）
+          <a class="gmap" href="https://maps.google.com/?q=鈴鹿サーキット+三重県鈴鹿市" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">GP Reception 報到，F1 聖地打卡！</div>
         <span class="highlight-tag blue">F1 聖地</span>
       </div>
@@ -420,7 +490,9 @@
         <div class="event-time">14:00 – 14:30</div>
         <span class="event-icon">🍦</span>
         <div class="event-type food">休息站</div>
-        <div class="event-name">安濃 SA（下行）</div>
+        <div class="event-name">安濃 SA（下行）
+          <a class="gmap" href="https://maps.google.com/?q=安濃サービスエリア+津市+三重県" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">廁所休息 ➔ 大內山牛奶霜淇淋，必吃！</div>
         <span class="highlight-tag green">大內山牛奶霜淇淋</span>
       </div>
@@ -428,7 +500,9 @@
         <div class="event-time">15:20 抵達停車場 → 15:25 衝進去！【16:00 打烊】</div>
         <span class="event-icon">🧿</span>
         <div class="event-type alert">時間緊迫！快閃購物</div>
-        <div class="event-name">おいせさん 外宮本店（防小人噴霧）</div>
+        <div class="event-name">おいせさん 外宮本店（防小人噴霧）
+          <a class="gmap" href="https://maps.google.com/?q=おいせさん外宮前本店+伊勢市" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">停外宮第 1 停車場後立刻前往，16:00 準時打烊，務必 15:25 前抵達購買！</div>
         <span class="highlight-tag">防小人噴霧</span>
       </div>
@@ -436,20 +510,29 @@
         <div class="event-time">16:00 – 17:00</div>
         <span class="event-icon">⛩️</span>
         <div class="event-type sightseeing">參拜</div>
-        <div class="event-name">伊勢神宮【外宮】豐受大神宮</div>
+        <div class="event-name">伊勢神宮【外宮】豐受大神宮
+          <a class="gmap" href="https://maps.google.com/?q=伊勢神宮外宮+伊勢市豊川町" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">購物完成後從容參拜，感受莊嚴神聖的外宮氛圍。</div>
       </div>
       <div class="event full-width">
         <div class="event-time">17:30</div>
         <span class="event-icon">🌅</span>
         <div class="event-type hotel">入住 · 晚餐</div>
-        <div class="event-name">Toba Grand Hotel（連住 3 晚）</div>
+        <div class="event-name">Toba Grand Hotel（連住 3 晚）
+          <a class="gmap" href="https://maps.google.com/?q=鳥羽グランドホテル+鳥羽市+三重県" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">辦理入住後直接享用晚餐。早餐 7:00–9:30 ／ 晚餐 17:30–20:30</div>
         <span class="highlight-tag">海景飯店</span><span class="highlight-tag gold">連住 3 晚</span>
       </div>
       <div class="hotel-card">
         <div class="hotel-icon">🏨</div>
-        <div><div class="hotel-label">住宿（D5·D6·D7）</div><div class="hotel-name">Toba Grand Hotel</div></div>
+        <div>
+          <div class="hotel-label">住宿（D5·D6·D7）</div>
+          <div class="hotel-name">Toba Grand Hotel
+            <a class="gmap" href="https://maps.google.com/?q=鳥羽グランドホテル+鳥羽市+三重県" target="_blank" rel="noopener">地圖</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -469,7 +552,9 @@
         <div class="event-time">09:00</div>
         <span class="event-icon">⛩️</span>
         <div class="event-type sightseeing">正式參拜</div>
-        <div class="event-name">伊勢神宮【內宮】皇大神宮</div>
+        <div class="event-name">伊勢神宮【內宮】皇大神宮
+          <a class="gmap" href="https://maps.google.com/?q=伊勢神宮内宮+伊勢市宇治館町" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">日本最神聖的神宮，供奉天照大神。停車：內宮市營宇治停車場 B1/B2。</div>
         <span class="highlight-tag green">日本第一神宮</span>
       </div>
@@ -477,31 +562,44 @@
         <div class="event-time">11:30</div>
         <span class="event-icon">🍜</span>
         <div class="event-type food">午餐</div>
-        <div class="event-name">豆腐屋（とうふや）</div>
+        <div class="event-name">豆腐屋（とうふや）
+          <a class="gmap" href="https://maps.google.com/?q=豆腐屋とうふや+伊勢市宇治中之切町" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">五十鈴川河畔，享受河景與精緻豆腐料理。</div>
       </div>
       <div class="event">
         <span class="event-icon">🛍️</span>
         <div class="event-type sightseeing">下午</div>
-        <div class="event-name">托福橫丁</div>
+        <div class="event-name">托福橫丁（おかげ横丁）
+          <a class="gmap" href="https://maps.google.com/?q=おかげ横丁+伊勢市宇治中之切町" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">參道商店街，試吃伊勢名物赤福。</div>
       </div>
       <div class="event">
         <span class="event-icon">🚗</span>
         <div class="event-type sightseeing">下午</div>
-        <div class="event-name">道の駅 伊勢志摩</div>
+        <div class="event-name">道の駅 伊勢志摩
+          <a class="gmap" href="https://maps.google.com/?q=道の駅伊勢志摩+志摩市磯部町" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">休息站選購當地特產。</div>
       </div>
       <div class="event full-width">
         <span class="event-icon">🏔️</span>
         <div class="event-type sightseeing">下午 · 絕景</div>
-        <div class="event-name">橫山展望台</div>
+        <div class="event-name">橫山展望台
+          <a class="gmap" href="https://maps.google.com/?q=横山展望台+志摩市阿児町" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">俯瞰英虞灣絕美景色，感受志摩半島壯闊全景。</div>
         <span class="highlight-tag blue">英虞灣全景</span>
       </div>
       <div class="hotel-card">
         <div class="hotel-icon">🏨</div>
-        <div><div class="hotel-label">住宿</div><div class="hotel-name">Toba Grand Hotel</div></div>
+        <div>
+          <div class="hotel-label">住宿</div>
+          <div class="hotel-name">Toba Grand Hotel
+            <a class="gmap" href="https://maps.google.com/?q=鳥羽グランドホテル+鳥羽市+三重県" target="_blank" rel="noopener">地圖</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -521,32 +619,45 @@
         <div class="event-time">09:00</div>
         <span class="event-icon">🦭</span>
         <div class="event-type sightseeing">上午</div>
-        <div class="event-name">鳥羽水族館</div>
+        <div class="event-name">鳥羽水族館
+          <a class="gmap" href="https://maps.google.com/?q=鳥羽水族館+鳥羽市鳥羽+三重県" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">觀賞全日本唯一的儒艮，療癒可愛的海獺。</div>
         <span class="highlight-tag blue">全日本唯一儒艮</span>
       </div>
       <div class="event">
         <span class="event-icon">🌤️</span>
         <div class="event-type sightseeing">下午</div>
-        <div class="event-name">朝熊山頂展望台</div>
+        <div class="event-name">朝熊山頂展望台
+          <a class="gmap" href="https://maps.google.com/?q=朝熊山頂展望台+伊勢市朝熊町" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">天空郵筒、享受高空足湯絕景。</div>
         <span class="highlight-tag green">天空足湯</span>
       </div>
       <div class="event">
         <span class="event-icon">🛣️</span>
         <div class="event-type sightseeing">下午 · 兜風</div>
-        <div class="event-name">珍珠路（Pearl Road）</div>
+        <div class="event-name">珍珠路（Pearl Road）
+          <a class="gmap" href="https://maps.google.com/?q=パールロード+鳥羽市+三重県" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">沿線海景絕美，自駕兜風最佳路線。</div>
       </div>
       <div class="event">
         <span class="event-icon">🌊</span>
         <div class="event-type sightseeing">下午</div>
-        <div class="event-name">鳥羽展望台</div>
+        <div class="event-name">鳥羽展望台
+          <a class="gmap" href="https://maps.google.com/?q=鳥羽展望台+鳥羽市安楽島町" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">眺望鳥羽港灣全景。</div>
       </div>
       <div class="hotel-card">
         <div class="hotel-icon">🏨</div>
-        <div><div class="hotel-label">住宿（最後一晚）</div><div class="hotel-name">Toba Grand Hotel</div></div>
+        <div>
+          <div class="hotel-label">住宿（最後一晚）</div>
+          <div class="hotel-name">Toba Grand Hotel
+            <a class="gmap" href="https://maps.google.com/?q=鳥羽グランドホテル+鳥羽市+三重県" target="_blank" rel="noopener">地圖</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -573,7 +684,9 @@
         <div class="event-time">13:00 – 15:30</div>
         <span class="event-icon">🛒</span>
         <div class="event-type sightseeing">最後採買</div>
-        <div class="event-name">刈谷 High Highway Oasis</div>
+        <div class="event-name">刈谷 High Highway Oasis
+          <a class="gmap" href="https://maps.google.com/?q=刈谷ハイウェイオアシス+刈谷市+愛知県" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">最後大採買水果、伴手禮，順便逛豪華廁所。</div>
         <span class="highlight-tag">高速公路名物 Oasis</span>
       </div>
@@ -581,7 +694,9 @@
         <div class="event-time">16:15</div>
         <span class="event-icon">🚗</span>
         <div class="event-type transport">還車</div>
-        <div class="event-name">中部機場還車</div>
+        <div class="event-name">中部機場還車
+          <a class="gmap" href="https://maps.google.com/?q=中部国際空港+愛知県常滑市" target="_blank" rel="noopener">地圖</a>
+        </div>
         <div class="event-desc">起飛前 4 小時完成還車。</div>
       </div>
       <div class="event">
@@ -603,9 +718,9 @@
   </div>
 
 </div></section>
-</div>
+</div><!-- /#panel-itinerary -->
 
-<!-- ══ MAP CODE PANEL ══ -->
+<!-- ══════════ MAP CODE PANEL ══════════ -->
 <div id="panel-mapcode" class="panel">
 <div class="map-panel"><div class="container">
   <h2 class="section-heading">🗺 自駕 Map Code 總表</h2>
@@ -622,26 +737,106 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td>錦橋西第 2 停車場</td><td><span class="map-code">4 319 334*23</span></td><td><span class="phone-num">—</span></td><td><span class="day-badge">D4</span></td><td>取車後回飯店放行李</td></tr>
-        <tr><td>Hotel Route Inn Kuwana</td><td><span class="map-code">38 710 422*77</span></td><td><span class="phone-num">050-5211-5805</span></td><td><span class="day-badge">D4</span></td><td>桑名住宿飯店</td></tr>
-        <tr><td>LOPIA 希望丘店 🆕</td><td><span class="map-code">38 710 482*05</span></td><td><span class="phone-num">0594-84-6348</span></td><td><span class="day-badge">D4</span></td><td>飯店附近超市</td></tr>
-        <tr><td>歌行燈（本店）</td><td><span class="map-code">38 718 106*11</span></td><td><span class="phone-num">0594-22-1077</span></td><td><span class="day-badge">D4</span></td><td>必吃文蛤</td></tr>
-        <tr><td>名花之里（燈光秀）</td><td><span class="map-code">38 834 507*33</span></td><td><span class="phone-num">0594-41-0787</span></td><td><span class="day-badge">D4</span></td><td>—</td></tr>
-        <tr><td>EXPASA 御在所 SA（下行）</td><td><span class="map-code">38 523 796*11</span></td><td><span class="phone-num">059-392-3161</span></td><td><span class="day-badge">D5</span></td><td>—</td></tr>
-        <tr><td>鮪魚餐廳（大遠食堂）</td><td><span class="map-code">38 584 766*55</span></td><td><span class="phone-num">059-365-6064</span></td><td><span class="day-badge">D5</span></td><td>—</td></tr>
-        <tr><td>鈴鹿賽道（正門 P1/P2）</td><td><span class="map-code">38 091 800*22</span></td><td><span class="phone-num">059-378-1111</span></td><td><span class="day-badge">D5</span></td><td>—</td></tr>
-        <tr><td>安濃 SA（下行）</td><td><span class="map-code">118 395 561*77</span></td><td><span class="phone-num">059-268-1207</span></td><td><span class="day-badge">D5</span></td><td>—</td></tr>
-        <tr><td>外宮第 1 停車場</td><td><span class="map-code">118 531 385*22</span></td><td><span class="phone-num">0596-24-1111</span></td><td><span class="day-badge">D5</span></td><td>噴霧店也在這</td></tr>
-        <tr><td>Toba Grand Hotel</td><td><span class="map-code">118 566 221*00</span></td><td><span class="phone-num">0599-25-4141</span></td><td><span class="day-badge">D5</span> <span class="day-badge">D6</span> <span class="day-badge">D7</span></td><td>鳥羽飯店</td></tr>
-        <tr><td>內宮市營宇治停車場（B1/B2）</td><td><span class="map-code">118 521 166*55</span></td><td><span class="phone-num">0596-24-1111</span></td><td><span class="day-badge">D6</span></td><td>—</td></tr>
-        <tr><td>豆腐屋（とうふや）</td><td><span class="map-code">118 521 349*11</span></td><td><span class="phone-num">0596-28-1028</span></td><td><span class="day-badge">D6</span></td><td>—</td></tr>
-        <tr><td>道の駅 伊勢志摩</td><td><span class="map-code">338 281 608*00</span></td><td><span class="phone-num">0599-56-2201</span></td><td><span class="day-badge">D6</span></td><td>—</td></tr>
-        <tr><td>橫山展望台</td><td><span class="map-code">338 251 771*00</span></td><td><span class="phone-num">0599-44-0567</span></td><td><span class="day-badge">D6</span></td><td>—</td></tr>
-        <tr><td>鳥羽水族館</td><td><span class="map-code">118 536 789*11</span></td><td><span class="phone-num">0599-25-2555</span></td><td><span class="day-badge">D7</span></td><td>—</td></tr>
-        <tr><td>朝熊山頂展望台</td><td><span class="map-code">118 558 791*00</span></td><td><span class="phone-num">0596-22-1810</span></td><td><span class="day-badge">D7</span></td><td>—</td></tr>
-        <tr><td>鳥羽展望台</td><td><span class="map-code">338 416 114*00</span></td><td><span class="phone-num">0599-33-6201</span></td><td><span class="day-badge">D7</span></td><td>—</td></tr>
-        <tr><td>刈谷 High Highway Oasis</td><td><span class="map-code">30 223 150*00</span></td><td><span class="phone-num">0566-35-0211</span></td><td><span class="day-badge">D8</span></td><td>最後採買</td></tr>
-        <tr><td>中部國際機場（還車點）</td><td><span class="map-code">371 681 501*11</span></td><td><span class="phone-num">0569-38-0130</span></td><td><span class="day-badge">D8</span></td><td>—</td></tr>
+        <tr>
+          <td>錦橋西第 2 停車場 <a class="tbl-gmap" href="https://maps.google.com/?q=錦橋西第2駐車場+名古屋市中区" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">4 319 334*23</span></td><td><span class="phone-num">—</span></td>
+          <td><span class="day-badge">D4</span></td><td><span class="note-text">取車後回飯店放行李</span></td>
+        </tr>
+        <tr>
+          <td>Hotel Route Inn Kuwana <a class="tbl-gmap" href="https://maps.google.com/?q=ホテルルートイン桑名+三重県桑名市" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">38 710 422*77</span></td><td><span class="phone-num">050-5211-5805</span></td>
+          <td><span class="day-badge">D4</span></td><td><span class="note-text">桑名住宿飯店</span></td>
+        </tr>
+        <tr>
+          <td>LOPIA 希望丘店 🆕 <a class="tbl-gmap" href="https://maps.google.com/?q=LOPIA+希望ケ丘店+桑名市" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">38 710 482*05</span></td><td><span class="phone-num">0594-84-6348</span></td>
+          <td><span class="day-badge">D4</span></td><td><span class="note-text">飯店附近超市</span></td>
+        </tr>
+        <tr>
+          <td>歌行燈（本店）<a class="tbl-gmap" href="https://maps.google.com/?q=歌行燈本店+桑名市+三重県" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">38 718 106*11</span></td><td><span class="phone-num">0594-22-1077</span></td>
+          <td><span class="day-badge">D4</span></td><td><span class="note-text">必吃文蛤</span></td>
+        </tr>
+        <tr>
+          <td>名花之里（燈光秀）<a class="tbl-gmap" href="https://maps.google.com/?q=なばなの里+桑名市長島町" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">38 834 507*33</span></td><td><span class="phone-num">0594-41-0787</span></td>
+          <td><span class="day-badge">D4</span></td><td><span class="note-text">—</span></td>
+        </tr>
+        <tr>
+          <td>EXPASA 御在所 SA（下行）<a class="tbl-gmap" href="https://maps.google.com/?q=御在所サービスエリア+三重県菰野町" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">38 523 796*11</span></td><td><span class="phone-num">059-392-3161</span></td>
+          <td><span class="day-badge">D5</span></td><td><span class="note-text">—</span></td>
+        </tr>
+        <tr>
+          <td>鮪魚餐廳（大遠食堂）<a class="tbl-gmap" href="https://maps.google.com/?q=大遠食堂+鈴鹿市+三重県" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">38 584 766*55</span></td><td><span class="phone-num">059-365-6064</span></td>
+          <td><span class="day-badge">D5</span></td><td><span class="note-text">—</span></td>
+        </tr>
+        <tr>
+          <td>鈴鹿賽道（正門 P1/P2）<a class="tbl-gmap" href="https://maps.google.com/?q=鈴鹿サーキット+三重県鈴鹿市" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">38 091 800*22</span></td><td><span class="phone-num">059-378-1111</span></td>
+          <td><span class="day-badge">D5</span></td><td><span class="note-text">—</span></td>
+        </tr>
+        <tr>
+          <td>安濃 SA（下行）<a class="tbl-gmap" href="https://maps.google.com/?q=安濃サービスエリア+津市+三重県" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">118 395 561*77</span></td><td><span class="phone-num">059-268-1207</span></td>
+          <td><span class="day-badge">D5</span></td><td><span class="note-text">—</span></td>
+        </tr>
+        <tr>
+          <td>外宮第 1 停車場 <a class="tbl-gmap" href="https://maps.google.com/?q=伊勢神宮外宮第一駐車場+伊勢市" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">118 531 385*22</span></td><td><span class="phone-num">0596-24-1111</span></td>
+          <td><span class="day-badge">D5</span></td><td><span class="note-text">噴霧店也在這</span></td>
+        </tr>
+        <tr>
+          <td>Toba Grand Hotel <a class="tbl-gmap" href="https://maps.google.com/?q=鳥羽グランドホテル+鳥羽市+三重県" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">118 566 221*00</span></td><td><span class="phone-num">0599-25-4141</span></td>
+          <td><span class="day-badge">D5</span> <span class="day-badge">D6</span> <span class="day-badge">D7</span></td><td><span class="note-text">鳥羽飯店</span></td>
+        </tr>
+        <tr>
+          <td>內宮市營宇治停車場（B1/B2）<a class="tbl-gmap" href="https://maps.google.com/?q=内宮市営宇治駐車場+伊勢市宇治館町" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">118 521 166*55</span></td><td><span class="phone-num">0596-24-1111</span></td>
+          <td><span class="day-badge">D6</span></td><td><span class="note-text">—</span></td>
+        </tr>
+        <tr>
+          <td>豆腐屋（とうふや）<a class="tbl-gmap" href="https://maps.google.com/?q=豆腐屋とうふや+伊勢市宇治中之切町" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">118 521 349*11</span></td><td><span class="phone-num">0596-28-1028</span></td>
+          <td><span class="day-badge">D6</span></td><td><span class="note-text">—</span></td>
+        </tr>
+        <tr>
+          <td>道の駅 伊勢志摩 <a class="tbl-gmap" href="https://maps.google.com/?q=道の駅伊勢志摩+志摩市磯部町" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">338 281 608*00</span></td><td><span class="phone-num">0599-56-2201</span></td>
+          <td><span class="day-badge">D6</span></td><td><span class="note-text">—</span></td>
+        </tr>
+        <tr>
+          <td>橫山展望台 <a class="tbl-gmap" href="https://maps.google.com/?q=横山展望台+志摩市阿児町" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">338 251 771*00</span></td><td><span class="phone-num">0599-44-0567</span></td>
+          <td><span class="day-badge">D6</span></td><td><span class="note-text">—</span></td>
+        </tr>
+        <tr>
+          <td>鳥羽水族館 <a class="tbl-gmap" href="https://maps.google.com/?q=鳥羽水族館+鳥羽市鳥羽+三重県" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">118 536 789*11</span></td><td><span class="phone-num">0599-25-2555</span></td>
+          <td><span class="day-badge">D7</span></td><td><span class="note-text">—</span></td>
+        </tr>
+        <tr>
+          <td>朝熊山頂展望台 <a class="tbl-gmap" href="https://maps.google.com/?q=朝熊山頂展望台+伊勢市朝熊町" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">118 558 791*00</span></td><td><span class="phone-num">0596-22-1810</span></td>
+          <td><span class="day-badge">D7</span></td><td><span class="note-text">—</span></td>
+        </tr>
+        <tr>
+          <td>鳥羽展望台 <a class="tbl-gmap" href="https://maps.google.com/?q=鳥羽展望台+鳥羽市安楽島町" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">338 416 114*00</span></td><td><span class="phone-num">0599-33-6201</span></td>
+          <td><span class="day-badge">D7</span></td><td><span class="note-text">—</span></td>
+        </tr>
+        <tr>
+          <td>刈谷 High Highway Oasis <a class="tbl-gmap" href="https://maps.google.com/?q=刈谷ハイウェイオアシス+刈谷市+愛知県" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">30 223 150*00</span></td><td><span class="phone-num">0566-35-0211</span></td>
+          <td><span class="day-badge">D8</span></td><td><span class="note-text">最後採買</span></td>
+        </tr>
+        <tr>
+          <td>中部國際機場（還車點）<a class="tbl-gmap" href="https://maps.google.com/?q=中部国際空港+愛知県常滑市" target="_blank" rel="noopener">地圖</a></td>
+          <td><span class="map-code">371 681 501*11</span></td><td><span class="phone-num">0569-38-0130</span></td>
+          <td><span class="day-badge">D8</span></td><td><span class="note-text">—</span></td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -660,7 +855,7 @@
   </div>
 
 </div></div>
-</div>
+</div><!-- /#panel-mapcode -->
 
 <footer>
   <div class="footer-title">名古屋・三重伊勢志摩</div>
