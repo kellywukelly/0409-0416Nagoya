@@ -140,6 +140,28 @@
   .link-url { font-size:.78rem; color:var(--sea); text-decoration:none; border-bottom:1px solid rgba(44,110,138,.3); }
   .link-url:hover { color:var(--ink); border-bottom-color:var(--ink); }
 
+  /* Notes panel */
+  .notes-panel { padding: 4rem 0; }
+  .note-block { margin-bottom: 3rem; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--cream); }
+  .note-day-header { display: flex; align-items: center; gap: 1rem; padding: 1.2rem 1.6rem; background: var(--ink); }
+  .note-day-badge { font-family: 'Playfair Display', serif; font-weight: 700; font-size: .85rem; color: #fff; background: var(--torii); padding: .3rem .8rem; border-radius: 3px; white-space: nowrap; }
+  .note-day-title { font-family: 'Noto Serif TC', serif; font-size: 1rem; color: rgba(255,255,255,.8); font-weight: 300; }
+  .note-section { padding: 1.4rem 1.6rem; border-bottom: 1px solid var(--border); }
+  .note-section:last-child { border-bottom: none; }
+  .note-section-title { font-size: .72rem; letter-spacing: .2em; text-transform: uppercase; color: var(--mist); font-weight: 500; margin-bottom: 1rem; }
+  .note-list { padding-left: 1.3rem; }
+  .note-list li { font-size: .85rem; line-height: 1.8; color: var(--charcoal); margin-bottom: .3rem; }
+  .note-list li strong { color: var(--ink); }
+  .note-callout { background: rgba(232,65,10,.06); border: 1px solid rgba(232,65,10,.18); border-left: 3px solid var(--torii); border-radius: 4px; padding: 1rem 1.2rem; margin-bottom: 1rem; font-size: .85rem; line-height: 1.7; color: var(--charcoal); }
+  .note-callout.green { background: rgba(45,90,61,.06); border-color: rgba(45,90,61,.2); border-left-color: var(--pine); }
+  .note-callout.blue  { background: rgba(44,110,138,.06); border-color: rgba(44,110,138,.2); border-left-color: var(--sea); }
+  .note-callout-label { font-size: .62rem; letter-spacing: .25em; text-transform: uppercase; color: var(--torii); font-weight: 600; margin-bottom: .5rem; }
+  .note-callout.green .note-callout-label { color: var(--pine); }
+  .note-callout.blue .note-callout-label  { color: var(--sea); }
+  .note-tip { display: flex; gap: .8rem; align-items: flex-start; background: rgba(201,168,76,.08); border: 1px solid rgba(201,168,76,.2); border-radius: 4px; padding: .9rem 1.1rem; margin-top: 1rem; font-size: .83rem; line-height: 1.7; color: var(--charcoal); }
+  .note-tip.highlight { background: rgba(45,90,61,.07); border-color: rgba(45,90,61,.2); }
+  .note-tip-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+
   /* Footer */
   footer { background:var(--ink); padding:4rem 2rem; text-align:center; color:rgba(255,255,255,.3); }
   footer .footer-title { font-family:'Noto Serif TC',serif; font-size:1.5rem; color:rgba(255,255,255,.7); margin-bottom:.8rem; }
@@ -206,6 +228,7 @@
 <div class="tab-bar">
   <button class="tab-btn active" onclick="switchTab('itinerary',this)">📅 每日行程</button>
   <button class="tab-btn" onclick="switchTab('mapcode',this)">🗺 Map Code 總表</button>
+  <button class="tab-btn" onclick="switchTab('notes',this)">📝 旅遊筆記</button>
 </div>
 
 <!-- ══════════ ITINERARY PANEL ══════════ -->
@@ -829,11 +852,7 @@
           <td><span class="map-code">118 521 166*55</span></td><td><span class="phone-num">0596-24-1111</span></td>
           <td><span class="day-badge">D6</span></td><td><span class="note-text">—</span></td>
         </tr>
-        <tr>
-          <td>豆腐屋（とうふや）<a class="tbl-gmap" href="https://maps.google.com/?q=豆腐屋とうふや+伊勢市宇治中之切町" target="_blank" rel="noopener">地圖</a></td>
-          <td><span class="map-code">118 521 349*11</span></td><td><span class="phone-num">0596-28-1028</span></td>
-          <td><span class="day-badge">D6</span></td><td><span class="note-text">—</span></td>
-        </tr>
+
         <tr>
           <td>道の駅 伊勢志摩 <a class="tbl-gmap" href="https://maps.google.com/?q=道の駅伊勢志摩+志摩市磯部町" target="_blank" rel="noopener">地圖</a></td>
           <td><span class="map-code">338 281 608*00</span></td><td><span class="phone-num">0599-56-2201</span></td>
@@ -888,6 +907,113 @@
 
 </div></div>
 </div><!-- /#panel-mapcode -->
+
+<!-- ══════════ NOTES PANEL ══════════ -->
+<div id="panel-notes" class="panel">
+<div class="notes-panel"><div class="container">
+  <h2 class="section-heading">📝 旅遊筆記</h2>
+  <p class="section-sub">各天交通攻略與實用小提醒</p>
+
+  <!-- D1 Notes -->
+  <div class="note-block">
+    <div class="note-day-header">
+      <div class="note-day-badge">Day 1</div>
+      <div class="note-day-title">4/9 (四)　抵達名古屋</div>
+    </div>
+    <div class="note-section">
+      <div class="note-section-title">✈️ 入境後前往名鐵月台</div>
+      <ol class="note-list">
+        <li>在 <strong>2F</strong> 找到 <strong>Train</strong> 指示牌，左轉直走。</li>
+        <li>看指示右轉直走，過空橋後看指示左轉直走。</li>
+        <li>即可看到 <strong>名鐵購票口</strong>。</li>
+      </ol>
+    </div>
+    <div class="note-section">
+      <div class="note-section-title">🏨 抵達名古屋站後 → 飯店</div>
+      <div class="note-callout">
+        <div class="note-callout-label">最近地鐵站</div>
+        <p>「<strong>國際中心站</strong>」（国際センター駅 / Kokusai Center Station）<br>
+        搭乘：名古屋市營地下鐵 <strong>櫻通線</strong>（Sakura-dori Line）<br>
+        從 <strong>3號出口</strong> 步行至飯店約 <strong>4–5 分鐘（400公尺）</strong></p>
+      </div>
+      <div class="note-tip">
+        <span class="note-tip-icon">💡</span>
+        <div>
+          <p><strong>從名古屋站走路：</strong>步行約 10–12 分鐘。行李多時建議搭一站地鐵到「國際中心站」比較輕鬆。</p>
+          <p style="margin-top:.5rem"><strong>地下街串連：</strong>名古屋站與國際中心站之間有「<strong>Unimall</strong>」地下街相通，天氣不好時可以走地下街遮風避雨，一路逛過來非常方便。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- D2 Notes -->
+  <div class="note-block">
+    <div class="note-day-header">
+      <div class="note-day-badge" style="background:var(--vermillion)">Day 2</div>
+      <div class="note-day-title">4/10 (五)　賞櫻與鰻魚飯</div>
+    </div>
+    <div class="note-section">
+      <div class="note-section-title">🚃 交通策略</div>
+      <div class="note-callout green">
+        <div class="note-callout-label">結論</div>
+        <p>全程刷 <strong>西瓜卡（Suica）</strong>或手機 IC 卡</p>
+        <p style="margin-top:.4rem;opacity:.8;font-size:.82rem">週五沒有折扣券，且行程包含大量名鐵路段，地鐵一日券不划算。</p>
+      </div>
+    </div>
+    <div class="note-section">
+      <div class="note-section-title">🗺 交通路徑</div>
+      <ol class="note-list">
+        <li><strong>飯店 → 柳橋市場：</strong>步行</li>
+        <li><strong>名古屋站 → 岩倉站：</strong>搭名鐵犬山線（刷 Suica，約 15 分鐘）</li>
+        <li><strong>岩倉站 → 神宮前站：</strong>搭名鐵（刷 Suica，約 30 分鐘）</li>
+        <li><strong>熱田神宮 → 蓬萊軒：</strong>步行</li>
+        <li><strong>地鐵傳馬町站 → 鶴舞站：</strong>搭地下鐵名城線轉鶴舞線（刷 Suica）</li>
+        <li><strong>鶴舞站 → 國際中心站：</strong>搭地下鐵鶴舞線轉櫻通線（刷 Suica）</li>
+      </ol>
+      <div class="note-tip">
+        <span class="note-tip-icon">💡</span>
+        <div><p>出發前請確保 Suica 餘額有 <strong>2,500 日圓以上</strong>。</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- D3 Notes -->
+  <div class="note-block">
+    <div class="note-day-header">
+      <div class="note-day-badge" style="background:var(--sea)">Day 3</div>
+      <div class="note-day-title">4/11 (六)　水族館與運動用品</div>
+    </div>
+    <div class="note-section">
+      <div class="note-section-title">🚃 交通策略</div>
+      <div class="note-callout blue">
+        <div class="note-callout-label">結論</div>
+        <p>必買「<strong>週末環遊券（Donichi Eco Ticket）</strong>」</p>
+        <p style="margin-top:.4rem;font-size:.82rem">售價 <strong>620 日圓</strong>｜在地鐵站售票機按<strong>黃色按鈕</strong>購買</p>
+        <p style="margin-top:.3rem;font-size:.82rem;opacity:.8">包含地下鐵全線 + 市營巴士。光是「門票折扣 + 來回車資」就回本。</p>
+      </div>
+    </div>
+    <div class="note-section">
+      <div class="note-section-title">🗺 交通路徑</div>
+      <ol class="note-list">
+        <li><strong>國際中心站 → 名古屋港站：</strong>搭地下鐵櫻通線轉名港線（用券）</li>
+        <li><strong>名古屋港站 → 金山站 / 山王：</strong>搭地下鐵轉巴士或步行（用券）</li>
+        <li><strong>山王 / 金山 → 國際中心站：</strong>搭地下鐵（用券）</li>
+      </ol>
+    </div>
+    <div class="note-section">
+      <div class="note-section-title">🎁 隱藏福利</div>
+      <div class="note-tip highlight">
+        <span class="note-tip-icon">🎟</span>
+        <div>
+          <p>買水族館門票時，出示這張券 <strong>每人折抵 200 日圓！</strong></p>
+          <p style="margin-top:.4rem;font-size:.8rem">⚠️ 澄清：這張券<strong>包含地下鐵</strong>，並非只能搭巴士，請放心使用。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div></div>
+</div><!-- /#panel-notes -->
 
 <footer>
   <div class="footer-title">名古屋・三重伊勢志摩</div>
