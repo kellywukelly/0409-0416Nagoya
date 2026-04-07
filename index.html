@@ -161,6 +161,14 @@
   .note-tip { display: flex; gap: .8rem; align-items: flex-start; background: rgba(201,168,76,.08); border: 1px solid rgba(201,168,76,.2); border-radius: 4px; padding: .9rem 1.1rem; margin-top: 1rem; font-size: .83rem; line-height: 1.7; color: var(--charcoal); }
   .note-tip.highlight { background: rgba(45,90,61,.07); border-color: rgba(45,90,61,.2); }
   .note-tip-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: .1rem; }
+  .ticket-table-wrapper { overflow-x: auto; }
+  .ticket-table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  .ticket-table thead tr { background: var(--ink); color: #fff; }
+  .ticket-table thead th { padding: .7rem 1rem; text-align: left; font-weight: 400; letter-spacing: .08em; font-size: .72rem; }
+  .ticket-table tbody tr { border-bottom: 1px solid var(--border); }
+  .ticket-table tbody tr:last-child { border-bottom: none; }
+  .ticket-table tbody td { padding: .75rem 1rem; vertical-align: middle; font-size: .82rem; color: var(--charcoal); }
+  .ticket-table tbody td:first-child { color: var(--ink); white-space: nowrap; }
 
   /* Footer */
   footer { background:var(--ink); padding:4rem 2rem; text-align:center; color:rgba(255,255,255,.3); }
@@ -286,47 +294,50 @@
       <div class="day-header-left">
         <div class="day-number">Day Two</div>
         <div class="day-date">4月10日 (五)</div>
-        <div class="day-title">櫻花、神宮與鰻魚飯</div>
+        <div class="day-title">雨天首選・水族館 + 熱田一網打盡</div>
       </div>
       <div class="day-node vermillion">2</div><div></div>
     </div>
     <div class="events">
-      <div class="event">
-        <span class="event-icon">🌸</span>
-        <div class="event-type sightseeing">上午</div>
-        <div class="event-name">柳橋中央市場
-          <a class="gmap" href="https://maps.google.com/?q=柳橋中央市場+名古屋市中村区" target="_blank" rel="noopener">地圖</a>
+      <div class="event full-width">
+        <div class="event-time">10:00 – 15:00</div>
+        <span class="event-icon">🐋</span>
+        <div class="event-type sightseeing">全天 · 室內</div>
+        <div class="event-name">名古屋港水族館
+          <a class="gmap" href="https://maps.google.com/?q=名古屋港水族館+名古屋市港区" target="_blank" rel="noopener">地圖</a>
         </div>
-        <div class="event-desc">早市氛圍，感受在地食材文化。</div>
-      </div>
-      <div class="event">
-        <span class="event-icon">🌸</span>
-        <div class="event-type sightseeing">上午 · 賞櫻</div>
-        <div class="event-name">岩倉五條川櫻花
-          <a class="gmap" href="https://maps.google.com/?q=五条川+岩倉市+愛知県+桜" target="_blank" rel="noopener">地圖</a>
-        </div>
-        <div class="event-desc">春日絕景賞櫻名所。</div>
-        <span class="highlight-tag green">賞櫻名所</span>
-      </div>
-      <div class="event">
-        <span class="event-icon">⛩️</span>
-        <div class="event-type sightseeing">下午</div>
-        <div class="event-name">熱田神宮
-          <a class="gmap" href="https://maps.app.goo.gl/KGGGdYzKRPTfRPH59?g_st=ic" target="_blank" rel="noopener">地圖</a>
-        </div>
-        <div class="event-desc">名古屋最重要的神宮，供奉草薙劍。</div>
-      </div>
-      <div class="event alert-card">
-        <div class="event-time">16:00【重點提醒】</div>
-        <span class="event-icon">⚠️</span>
-        <div class="event-type alert">注意事項</div>
-        <div class="event-name">熱田蓬萊軒 — 先去拿號碼牌！
-          <a class="gmap" href="https://maps.google.com/?q=熱田蓬萊軒+神宮店+名古屋" target="_blank" rel="noopener">地圖</a>
-        </div>
-        <div class="event-desc">建議<strong>先拿完號碼牌</strong>再逛神宮或周邊，避免白等。</div>
-        <span class="highlight-tag">16:00 前往排隊</span>
+        <div class="event-desc">即使外面下雨，室內看虎鯨、企鵝與海豚秀完全不受影響。</div>
+        <span class="highlight-tag blue">虎鯨 · 企鵝 · 海豚秀</span>
+        <span class="highlight-tag green">雨天首選</span>
       </div>
       <div class="event full-width">
+        <div class="event-time">15:30</div>
+        <span class="event-icon">🚇</span>
+        <div class="event-type transport">移動</div>
+        <div class="event-name">名港線 → 傳馬町站</div>
+        <div class="event-desc">從水族館搭地鐵「名港線」前往傳馬町站，僅需約 10 分鐘。</div>
+      </div>
+      <div class="event alert-card full-width">
+        <div class="event-time">16:00【重點】</div>
+        <span class="event-icon">⚠️</span>
+        <div class="event-type alert">策略・先拿號碼牌</div>
+        <div class="event-name">熱田蓬萊軒（本店）取號
+          <a class="gmap" href="https://maps.google.com/?q=熱田蓬萊軒+神宮店+名古屋" target="_blank" rel="noopener">地圖</a>
+        </div>
+        <div class="event-desc">週五下午 16:00 左右去領號碼牌，通常可排到 <strong>17:00 或 17:30</strong> 第一批進場。</div>
+        <span class="highlight-tag">16:00 前往領牌</span>
+      </div>
+      <div class="event full-width">
+        <div class="event-time">16:00 – 17:00</div>
+        <span class="event-icon">⛩️</span>
+        <div class="event-type sightseeing">趁等待空檔</div>
+        <div class="event-name">熱田神宮 快速參拜
+          <a class="gmap" href="https://maps.app.goo.gl/KGGGdYzKRPTfRPH59?g_st=ic" target="_blank" rel="noopener">地圖</a>
+        </div>
+        <div class="event-desc">步行 3 分鐘即達，有樹蔭遮雨，雨天別有一番幽靜風味。</div>
+      </div>
+      <div class="event full-width">
+        <div class="event-time">17:00</div>
         <span class="event-icon">🍱</span>
         <div class="event-type food">晚餐</div>
         <div class="event-name">熱田蓬萊軒（鰻魚飯三吃）</div>
@@ -334,13 +345,13 @@
         <span class="highlight-tag">名古屋必食</span>
       </div>
       <div class="event full-width">
-        <span class="event-icon">🌸</span>
-        <div class="event-type sightseeing">飯後 · 夜賞</div>
-        <div class="event-name">鶴舞公園（夜櫻）
-          <a class="gmap" href="https://maps.google.com/?q=鶴舞公園+名古屋市昭和区" target="_blank" rel="noopener">地圖</a>
+        <div class="event-time">19:00</div>
+        <span class="event-icon">🛍️</span>
+        <div class="event-type sightseeing">飯後</div>
+        <div class="event-name">返回飯店 或 榮町（Sakae）逛街
+          <a class="gmap" href="https://maps.google.com/?q=栄+名古屋市中区" target="_blank" rel="noopener">地圖</a>
         </div>
-        <div class="event-desc">吃完鰻魚飯後步行或驅車前往，名古屋代表性賞夜櫻勝地，燈光映照下的粉紅花海格外夢幻。</div>
-        <span class="highlight-tag green">夜櫻名所</span>
+        <div class="event-desc">視體力決定，榮町是名古屋最熱鬧的商圈，百貨、餐廳、藥妝應有盡有。</div>
       </div>
       <div class="hotel-card">
         <div class="hotel-icon">🏨</div>
@@ -360,28 +371,46 @@
       <div class="day-header-left">
         <div class="day-number">Day Three</div>
         <div class="day-date">4月11日 (六)</div>
-        <div class="day-title">名古屋港水族館全日</div>
+        <div class="day-title">晴天賞櫻・X5 實戰 + 物資補給</div>
       </div>
       <div class="day-node sea">3</div><div></div>
     </div>
     <div class="events">
       <div class="event full-width">
-        <span class="event-icon">🐋</span>
-        <div class="event-type sightseeing">全天</div>
-        <div class="event-name">名古屋港水族館
-          <a class="gmap" href="https://maps.google.com/?q=名古屋港水族館+名古屋市港区" target="_blank" rel="noopener">地圖</a>
+        <span class="event-icon">🌸</span>
+        <div class="event-type sightseeing">上午</div>
+        <div class="event-name">岩倉五條川櫻花
+          <a class="gmap" href="https://maps.google.com/?q=五条川+岩倉市+愛知県+桜" target="_blank" rel="noopener">地圖</a>
         </div>
-        <div class="event-desc">觀賞虎鯨表演、企鵝漫步，全日暢遊日本最大級水族館。</div>
-        <span class="highlight-tag blue">虎鯨 · 企鵝漫步</span>
+        <div class="event-desc">週末有祭典，天氣好，Insta360 X5 拍 8K 櫻吹雪最佳時機！</div>
+        <span class="highlight-tag green">賞櫻名所 · 週末祭典</span>
+        <span class="highlight-tag blue">X5 8K 最佳場景</span>
+      </div>
+      <div class="event full-width">
+        <span class="event-icon">🌸</span>
+        <div class="event-type sightseeing">下午</div>
+        <div class="event-name">鶴舞公園 賞櫻
+          <a class="gmap" href="https://maps.google.com/?q=鶴舞公園+名古屋市昭和区" target="_blank" rel="noopener">地圖</a>
+        </div>
+        <div class="event-desc">離 Sports DEPO 山王店不遠，賞完直接步行過去採買，動線順暢。</div>
+        <span class="highlight-tag green">夜櫻也美</span>
       </div>
       <div class="event full-width">
         <span class="event-icon">🏋️</span>
-        <div class="event-type sightseeing">順道</div>
+        <div class="event-type sightseeing">傍晚</div>
         <div class="event-name">Sports DEPO Sanno
           <a class="gmap" href="https://maps.app.goo.gl/B8ovuFDZUdvxCRmR6?g_st=ic" target="_blank" rel="noopener">地圖</a>
         </div>
-        <div class="event-desc">大型運動用品店，可選購戶外裝備或旅遊用品。</div>
+        <div class="event-desc">大型運動用品店採買完直接回飯店放東西，不用提著沉重戰利品去跑景點。</div>
         <span class="highlight-tag blue">營業時間 10:00–21:00</span>
+      </div>
+      <div class="event full-width">
+        <span class="event-icon">🍜</span>
+        <div class="event-type food">晚上</div>
+        <div class="event-name">名古屋站周邊晚餐 或 鶴舞公園夜櫻
+          <a class="gmap" href="https://maps.google.com/?q=名古屋駅+愛知県名古屋市中村区" target="_blank" rel="noopener">地圖</a>
+        </div>
+        <div class="event-desc">視體力決定：回名古屋站享用晚餐，或再去鶴舞公園感受夜櫻燈光美景。</div>
       </div>
       <div class="hotel-card">
         <div class="hotel-icon">🏨</div>
@@ -938,29 +967,59 @@
   <div class="note-block">
     <div class="note-day-header">
       <div class="note-day-badge" style="background:var(--vermillion)">Day 2</div>
-      <div class="note-day-title">4/10 (五)　賞櫻與鰻魚飯</div>
+      <div class="note-day-title">4/10 (五)　雨天首選・水族館 + 熱田</div>
     </div>
     <div class="note-section">
       <div class="note-section-title">🚃 交通策略</div>
       <div class="note-callout green">
         <div class="note-callout-label">結論</div>
-        <p>全程刷 <strong>西瓜卡（Suica）</strong>或手機 IC 卡</p>
-        <p style="margin-top:.4rem;opacity:.8;font-size:.82rem">週五沒有折扣券，且行程包含大量名鐵路段，地鐵一日券不划算。</p>
+        <p>建議購買「<strong>地鐵 24 小時券（760円）</strong>」</p>
+        <p style="margin-top:.4rem;font-size:.82rem">水族館門票出示可折抵 <strong>200円</strong>，加上來回車資，穩穩回本！</p>
       </div>
     </div>
     <div class="note-section">
       <div class="note-section-title">🗺 交通路徑</div>
       <ol class="note-list">
-        <li><strong>飯店 → 柳橋市場：</strong>步行</li>
-        <li><strong>名古屋站 → 岩倉站：</strong>搭名鐵犬山線（刷 Suica，約 15 分鐘）</li>
-        <li><strong>岩倉站 → 神宮前站：</strong>搭名鐵（刷 Suica，約 30 分鐘）</li>
-        <li><strong>熱田神宮 → 蓬萊軒：</strong>步行</li>
-        <li><strong>地鐵傳馬町站 → 鶴舞站：</strong>搭地下鐵名城線轉鶴舞線（刷 Suica）</li>
-        <li><strong>鶴舞站 → 國際中心站：</strong>搭地下鐵鶴舞線轉櫻通線（刷 Suica）</li>
+        <li><strong>國際中心站 → 名古屋港站：</strong>搭地下鐵櫻通線轉名港線（用券）</li>
+        <li><strong>名古屋港站 → 傳馬町站：</strong>搭地下鐵名港線（用券，約 10 分鐘）</li>
+        <li><strong>熱田蓬萊軒 → 鶴舞站（如要逛榮）：</strong>搭地下鐵名城線轉鶴舞線（用券）</li>
+        <li><strong>鶴舞站 → 國際中心站：</strong>搭地下鐵鶴舞線轉櫻通線（用券）</li>
       </ol>
-      <div class="note-tip">
-        <span class="note-tip-icon">💡</span>
-        <div><p>出發前請確保 Suica 餘額有 <strong>2,500 日圓以上</strong>。</p></div>
+    </div>
+  </div>
+
+  <!-- D2/D3 Ticket comparison -->
+  <div class="note-block">
+    <div class="note-day-header">
+      <div class="note-day-badge" style="background:var(--pine)">交通費對照</div>
+      <div class="note-day-title">4/10–4/11　兩天票券選擇</div>
+    </div>
+    <div class="note-section">
+      <div class="ticket-table-wrapper">
+        <table class="ticket-table">
+          <thead>
+            <tr>
+              <th>日期</th>
+              <th>行程重點</th>
+              <th>建議票券</th>
+              <th>預估省下費用</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>4/10 (五)</strong></td>
+              <td>水族館 + 蓬萊軒</td>
+              <td>地鐵 24 小時券 <span style="color:var(--torii);font-weight:600">760円</span></td>
+              <td>門票折 200円 + 車資，穩賺！</td>
+            </tr>
+            <tr>
+              <td><strong>4/11 (六)</strong></td>
+              <td>岩倉 + 鶴舞 + 運動用品</td>
+              <td>週末環遊券 <span style="color:var(--torii);font-weight:600">620円</span></td>
+              <td>車資跑三點，超級划算！</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -969,7 +1028,7 @@
   <div class="note-block">
     <div class="note-day-header">
       <div class="note-day-badge" style="background:var(--sea)">Day 3</div>
-      <div class="note-day-title">4/11 (六)　水族館與運動用品</div>
+      <div class="note-day-title">4/11 (六)　晴天賞櫻 + 採買</div>
     </div>
     <div class="note-section">
       <div class="note-section-title">🚃 交通策略</div>
@@ -977,26 +1036,17 @@
         <div class="note-callout-label">結論</div>
         <p>必買「<strong>週末環遊券（Donichi Eco Ticket／ドニチエコきっぷ）</strong>」</p>
         <p style="margin-top:.4rem;font-size:.82rem">售價 <strong>620 日圓</strong>｜在地鐵站售票機按<strong>黃色按鈕</strong>購買</p>
-        <p style="margin-top:.3rem;font-size:.82rem;opacity:.8">包含地下鐵全線 + 市營巴士。光是「門票折扣 + 來回車資」就回本。</p>
+        <p style="margin-top:.3rem;font-size:.82rem;opacity:.8">包含地下鐵全線 + 市營巴士。跑岩倉 → 鶴舞 → 山王三點，超級划算！</p>
       </div>
     </div>
     <div class="note-section">
       <div class="note-section-title">🗺 交通路徑</div>
       <ol class="note-list">
-        <li><strong>國際中心站 → 名古屋港站：</strong>搭地下鐵櫻通線轉名港線（用券）</li>
-        <li><strong>名古屋港站 → 金山站 / 山王：</strong>搭地下鐵轉巴士或步行（用券）</li>
-        <li><strong>山王 / 金山 → 國際中心站：</strong>搭地下鐵（用券）</li>
+        <li><strong>國際中心站 → 名古屋站 → 岩倉站：</strong>搭地下鐵轉名鐵犬山線（岩倉段刷 Suica）</li>
+        <li><strong>岩倉站 → 鶴舞公園：</strong>搭名鐵回名古屋後轉地下鐵鶴舞線（用券）</li>
+        <li><strong>鶴舞公園 → Sports DEPO 山王：</strong>步行或搭地下鐵（用券）</li>
+        <li><strong>山王 → 國際中心站：</strong>搭地下鐵（用券）</li>
       </ol>
-    </div>
-    <div class="note-section">
-      <div class="note-section-title">🎁 隱藏福利</div>
-      <div class="note-tip highlight">
-        <span class="note-tip-icon">🎟</span>
-        <div>
-          <p>買水族館門票時，出示這張券 <strong>每人折抵 200 日圓！</strong></p>
-          <p style="margin-top:.4rem;font-size:.8rem">⚠️ 澄清：這張券<strong>包含地下鐵</strong>，並非只能搭巴士，請放心使用。</p>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -1013,14 +1063,15 @@
         <li><strong>滿油還車：</strong>日本租車通常要求「滿油還車」。建議在抵達中部機場還車點前，在<strong>機場島內或臨空常滑站附近</strong>的最後一個加油站加滿，並保留收據供還車時檢查。</li>
         <li><strong>高速公路過路費（ETC）：</strong>行程會經過「東名阪自動車道」與「伊勢自動車道」，過路費預估約 <strong>7,000–9,000 日圓</strong>，通常比油錢貴，<strong>還車時在櫃檯結算</strong>。</li>
         <li><strong>朝熊山收費道路：</strong>前往朝熊山頂展望台需支付天空之徑通行費，約 <strong>1,270 日圓</strong>，<strong>不含在 ETC 內</strong>，需現場支付現金。</li>
-        <li><strong>停車費預估：</strong>約 <strong>4,000 日圓</strong>。</li>
+        <li><strong>停車費預估：</strong>約 <strong>4,000 日圓</strong>。（含鈴鹿賽道 Suzuka Circuit 停車費 + 鳥羽水族館停車場收費 1,000 日圓）</li>
       </ol>
     </div>
     <div class="note-section">
       <div class="note-section-title">💴 費用總覽估算</div>
       <div class="note-callout" style="background:rgba(138,109,40,.07);border-color:rgba(138,109,40,.2);border-left-color:#8a6d28;">
         <div class="note-callout-label" style="color:#8a6d28">預估金額</div>
-        <p>油錢 ≈ 6,000 円 ／ ETC 過路費 ≈ 7,000–9,000 円 ／ 朝熊山 ≈ 1,270 円 ／ 停車費 ≈ 4,000 円</p>
+        <p>油錢 ≈ 6,000 円 ／ ETC 過路費 ≈ 7,000–9,000 円 ／ 朝熊山 ≈ 1,270 円 ／ 停車費 ≈ 4,000 円<br>
+        <span style="font-size:.78rem;opacity:.75">※ 停車費含：鈴鹿賽道（Suzuka Circuit）+ 鳥羽水族館（1,000 円）+ 其他各點</span></p>
         <p style="margin-top:.5rem;font-weight:600;color:var(--ink)">自駕雜費總計預估：約 18,000–20,000 円</p>
       </div>
     </div>
